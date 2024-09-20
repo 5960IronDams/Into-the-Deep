@@ -37,12 +37,12 @@ public class Drive {
         setMode(runMode);
     }
 
-    public static void setMode(DcMotor.RunMode mode) {
-        _mFrontLeft.setMode(mode);
-        _mFrontRight.setMode(mode);
-        _mRearLeft.setMode(mode);
-        _mRearRight.setMode(mode);
-    }
+//    public static void setMode(DcMotor.RunMode mode) {
+//        _mFrontLeft.setMode(mode);
+//        _mFrontRight.setMode(mode);
+//        _mRearLeft.setMode(mode);
+//        _mRearRight.setMode(mode);
+//    }
     public static void stop() {
         setPower(0);
     }
