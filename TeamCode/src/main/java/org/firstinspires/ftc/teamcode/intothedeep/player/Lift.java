@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
 
 public class Lift {
     static LinearOpMode _linearOpMode;
-    static double _govenor = 1;
+    static double _govenor = 0.5;
 
     public static void initialize(LinearOpMode linearOpMode, DcMotor.RunMode runMode) {
         _linearOpMode = linearOpMode;

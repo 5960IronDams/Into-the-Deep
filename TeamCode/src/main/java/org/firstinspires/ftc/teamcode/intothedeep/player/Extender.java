@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
 
 public class Extender {
     static LinearOpMode _linearOpMode;
-    static double _govenor = 1;
+    static double _govenor = 0.55;
 
     public static void initialize(LinearOpMode linearOpMode, DcMotor.RunMode runMode) {
         _linearOpMode = linearOpMode;
