@@ -32,10 +32,12 @@ public class Player extends LinearOpMode {
              * gamepad2.right_bumber - In */
             Intake.run();
 
-            /* gamepad2.right_stick_y */
+            /* gamepad2.right_stick_y
+             * gamepad2.right_trigger - Governor  */
             Extender.run();
 
-            /* gamepad2.left_stick_y */
+            /* gamepad2.left_stick_y
+             * gamepad2.left_trigger - Govenor */
             Lift.run();
 
             telemetry.update();

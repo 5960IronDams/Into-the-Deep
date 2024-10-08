@@ -4,6 +4,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import java.util.Dictionary;
+import java.util.Hashtable;
+
 public class Drive {
     static DcMotor _mFrontLeft;
     static DcMotor _mFrontRight;
@@ -84,5 +87,14 @@ public class Drive {
         _mFrontRight.setTargetPosition(frp);
         _mRearLeft.setTargetPosition(rlp);
         _mRearRight.setTargetPosition(rrp);
+    }
+    public static Dictionary<String, Double> getPowers(){
+        Dictionary<String, Double> powers = new Hashtable<>();
+        powers.put("flp", _mFrontLeft.getPower());
+        powers.put("frp", _mFrontRight.getPower());
+        powers.put("rlp", _mRearLeft.getPower());
+        powers.put("rrp", -_mRearRight.getPower());
+
+        return powers;
     }
 }

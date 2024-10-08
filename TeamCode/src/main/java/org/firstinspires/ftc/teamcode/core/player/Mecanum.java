@@ -47,12 +47,20 @@ public class Mecanum {
     }
 
     public static void drive() {
-        if (setGovenor(_linearOpMode.gamepad1.left_trigger)) _linearOpMode.sleep(_govenor_sleep_delay);
+        float _isPressingTriggers = _linearOpMode.gamepad1.left_trigger + _linearOpMode.gamepad1.right_trigger;
+        if (setGovenor(_isPressingTriggers)) _linearOpMode.sleep(_govenor_sleep_delay);
 
         _linearOpMode.telemetry.addData("Throttle", getGovenorPercentage());
 
         Dictionary<String, Double> powers = getPowers(_linearOpMode.gamepad1.right_stick_y,
                 -_linearOpMode.gamepad1.right_stick_x, -_linearOpMode.gamepad1.left_stick_x);
         Drive.setPower(powers.get("flp"), powers.get("frp"), powers.get("rlp"), powers.get("rrp"));
+
+        Dictionary<String, Double> motors = Drive.getPowers();
+
+        _linearOpMode.telemetry.addData("flp",motors.get("flp"));
+        _linearOpMode.telemetry.addData("frp",motors.get("frp"));
+        _linearOpMode.telemetry.addData("rlp",motors.get("rlp"));
+        _linearOpMode.telemetry.addData("rrp",motors.get("rrp"));
     }
 }
