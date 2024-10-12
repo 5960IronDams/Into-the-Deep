@@ -66,12 +66,13 @@ public class Drive {
     }
 
     public static boolean isAtEncoder() {
-        if (_mFrontLeft.getPower() < 0)
-            return _mFrontLeft.getCurrentPosition() <= _mFrontLeft.getTargetPosition();
-        else if (_mFrontLeft.getPower() > 0)
-            return _mFrontLeft.getCurrentPosition() >= _mFrontLeft.getTargetPosition();
-
-        return true;
+        return Math.abs(_mFrontLeft.getCurrentPosition()) >= Math.abs(_mFrontLeft.getTargetPosition());
+//        if (_mFrontLeft.getPower() < 0)
+//            return _mFrontLeft.getCurrentPosition() <= _mFrontLeft.getTargetPosition();
+//        else if (_mFrontLeft.getPower() > 0)
+//            return _mFrontLeft.getCurrentPosition() >= _mFrontLeft.getTargetPosition();
+//
+//        return true;
     }
 
     public static int getCurrentPosition() {
