@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.autonomous.SubSystem;
 @Autonomous(name = "Basic")
 public class Auto extends LinearOpMode {
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         SubSystem.initialize(this);
 
         waitForStart();

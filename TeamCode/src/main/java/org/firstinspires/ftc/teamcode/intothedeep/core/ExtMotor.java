@@ -41,15 +41,6 @@ public class ExtMotor {
         ((DcMotorEx) _mExt).setTargetPositionTolerance(tolerance);
     }
 
-    public static boolean isAtEncoder() {
-        if (_mExt.getPower() < 0)
-            return _mExt.getCurrentPosition() <= _mExt.getTargetPosition();
-        else if (_mExt.getPower() > 0)
-            return _mExt.getCurrentPosition() >= _mExt.getTargetPosition();
-
-        return true;
-    }
-
     public static int getCurrentPosition() {
         return _mExt.getCurrentPosition();
     }

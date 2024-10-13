@@ -13,14 +13,13 @@ import org.firstinspires.ftc.teamcode.intothedeep.player.Extender;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Lift;
 
-import java.util.Dictionary;
 import java.util.Map;
 
 @TeleOp(name="TroubleShooter")
 public class TroubleShooter extends LinearOpMode {
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
 
         Mecanum.initialize(this);
         Drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

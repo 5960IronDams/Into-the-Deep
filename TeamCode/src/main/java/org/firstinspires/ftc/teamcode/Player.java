@@ -12,14 +12,13 @@ import org.firstinspires.ftc.teamcode.intothedeep.player.Extender;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Lift;
 
-import java.util.Dictionary;
 import java.util.Map;
 
 @TeleOp(name="Driver OP")
 public class Player extends LinearOpMode {
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
 
         Mecanum.initialize(this);
         Intake.initialize(this);

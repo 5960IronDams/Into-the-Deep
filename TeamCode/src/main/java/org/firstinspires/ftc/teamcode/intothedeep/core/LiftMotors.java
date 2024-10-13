@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -57,15 +56,6 @@ public class LiftMotors {
 
     public static boolean isBusy() {
         return _mLeft.isBusy();  //|| _mRight.isBusy();
-    }
-
-    public static boolean isAtEncoder() {
-        if (_mLeft.getPower() < 0)
-            return _mLeft.getCurrentPosition() <= _mLeft.getTargetPosition();
-        else if (_mLeft.getPower() > 0)
-            return _mLeft.getCurrentPosition() >= _mLeft.getTargetPosition();
-
-        return true;
     }
 
     public static int getCurrentPosition() {

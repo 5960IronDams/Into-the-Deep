@@ -3,12 +3,12 @@ package org.firstinspires.ftc.teamcode.core.player;
 import androidx.annotation.NonNull;
 
 public class Govenor {
-    double _max = 1.0;
-    double _min = 0.5;
+    double _max;
+    double _min;
 
     long _sleep_delay = 350;
 
-    double _active = _max;
+    double _active;
 
     public Govenor(double max, double min, boolean defaultToMin) {
         _max = max;
