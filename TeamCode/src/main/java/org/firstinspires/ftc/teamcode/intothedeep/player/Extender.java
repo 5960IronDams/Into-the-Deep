@@ -23,4 +23,8 @@ public class Extender {
         if (_govenor.setActive(_linearOpMode.gamepad2.right_trigger)) _linearOpMode.sleep(_govenor.getSleepDelay());
         ExtMotor.setPower(_linearOpMode.gamepad2.right_stick_y * _govenor.getActive());
     }
+
+    public static String getActiveGovenor() {
+        return _govenor.toString();
+    }
 }

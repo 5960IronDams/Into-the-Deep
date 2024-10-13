@@ -21,7 +21,7 @@ public class Mecanum {
         Drive.initialize(linearOpMode.hardwareMap, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    static Dictionary<String, Double> getPowers(double vertical, double horizontal, double pivot) {
+    public static Dictionary<String, Double> getPowers(double vertical, double horizontal, double pivot) {
         Dictionary<String, Double> powers = new Hashtable<>();
         powers.put("flp", (pivot + vertical + horizontal) * _govenor.getActive());
         powers.put("frp", (-pivot + (vertical - horizontal)) * _govenor.getActive());
@@ -35,17 +35,12 @@ public class Mecanum {
         float _isPressingTriggers = _linearOpMode.gamepad1.left_trigger + _linearOpMode.gamepad1.right_trigger;
         if (_govenor.setActive(_isPressingTriggers)) _linearOpMode.sleep(_govenor.getSleepDelay());
 
-        _linearOpMode.telemetry.addData("Throttle", _govenor.toString());
-
         Dictionary<String, Double> powers = getPowers(_linearOpMode.gamepad1.right_stick_y,
                 -_linearOpMode.gamepad1.right_stick_x, -_linearOpMode.gamepad1.left_stick_x);
         Drive.setPower(powers.get("flp"), powers.get("frp"), powers.get("rlp"), powers.get("rrp"));
+    }
 
-        Dictionary<String, Double> motors = Drive.getPowers();
-
-        _linearOpMode.telemetry.addData("flp",motors.get("flp"));
-        _linearOpMode.telemetry.addData("frp",motors.get("frp"));
-        _linearOpMode.telemetry.addData("rlp",motors.get("rlp"));
-        _linearOpMode.telemetry.addData("rrp",motors.get("rrp"));
+    public static String getActiveGovenor() {
+        return _govenor.toString();
     }
 }

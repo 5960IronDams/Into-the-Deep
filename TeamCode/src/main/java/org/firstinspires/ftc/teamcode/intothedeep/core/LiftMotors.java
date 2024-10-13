@@ -4,6 +4,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 public class LiftMotors {
     static DcMotor _mLeft;
     static DcMotor _mRight;
@@ -34,9 +37,16 @@ public class LiftMotors {
         setPower(power, power);
     }
 
-    private static void setPower(double left, double right) {
+    static void setPower(double left, double right) {
         _mLeft.setPower(left);
         _mRight.setPower(right);
+    }
+
+    public static Map<String, Double> getPowers() {
+        Hashtable<String, Double> powers = new Hashtable<>();
+        powers.put("right", _mRight.getPower());
+        powers.put("left", _mLeft.getPower());
+        return powers;
     }
 
     public static void setPositionTolerance(int tolerance) {
@@ -48,17 +58,15 @@ public class LiftMotors {
         return _mLeft.isBusy();  //|| _mRight.isBusy();
     }
 
-    public static boolean isAtEncoder() {
-        if (_mLeft.getPower() < 0)
-            return _mLeft.getCurrentPosition() <= _mLeft.getTargetPosition();
-        else if (_mLeft.getPower() > 0)
-            return _mLeft.getCurrentPosition() >= _mLeft.getTargetPosition();
-
-        return true;
-    }
-
     public static int getCurrentPosition() {
         return _mLeft.getCurrentPosition();
+    }
+
+    public static Map<String, Integer> getCurrentPositions() {
+        Hashtable<String, Integer> positions = new Hashtable<>();
+        positions.put("right", _mRight.getCurrentPosition());
+        positions.put("left", _mLeft.getCurrentPosition());
+        return positions;
     }
 
     public static void setTargetPosition(int pos) {

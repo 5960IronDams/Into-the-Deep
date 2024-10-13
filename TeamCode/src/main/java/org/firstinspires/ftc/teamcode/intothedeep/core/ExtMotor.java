@@ -29,21 +29,16 @@ public class ExtMotor {
         _mExt.setPower(power);
     }
 
+    public static double getPower() {
+        return  _mExt.getPower();
+    }
+
     public static boolean isBusy() {
         return _mExt.isBusy();
     }
 
     public static void setPositionTolerance(int tolerance) {
         ((DcMotorEx) _mExt).setTargetPositionTolerance(tolerance);
-    }
-
-    public static boolean isAtEncoder() {
-        if (_mExt.getPower() < 0)
-            return _mExt.getCurrentPosition() <= _mExt.getTargetPosition();
-        else if (_mExt.getPower() > 0)
-            return _mExt.getCurrentPosition() >= _mExt.getTargetPosition();
-
-        return true;
     }
 
     public static int getCurrentPosition() {

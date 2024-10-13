@@ -16,13 +16,15 @@ public class Intake {
         _linearOpMode.telemetry.addData("ClawPosition", _mClaw.getPosition());
     }
 
+    public static double getPosition() {
+        return _mClaw.getPosition();
+    }
+
     public static void run() {
         if (_linearOpMode.gamepad2.left_bumper) {
             _mClaw.setPosition(_clawMinimumRange);
         } else if (_linearOpMode.gamepad2.right_bumper) {
             _mClaw.setPosition(_clawMaxRange);
         }
-
-        _linearOpMode.telemetry.addData("ClawPosition", _mClaw.getPosition());
     }
 }

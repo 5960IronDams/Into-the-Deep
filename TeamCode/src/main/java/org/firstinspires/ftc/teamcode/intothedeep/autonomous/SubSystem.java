@@ -8,9 +8,21 @@ import org.firstinspires.ftc.teamcode.core.autonomous.Gyro;
 import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
 import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
 
+import java.util.Map;
+
+/*
+ * Drive encoders are negative moving forward and positive moving in reverse.
+ * Lift encoders are negative moving up and positive moving down.
+ * Extender encoder is negative out and positive in.
+ *   To prevent the extender from running into the ground are saying it can't run until the lift's
+ *      encoder is < the safetyExtenderPos variable value
+ *
+ * We need a counter on the lift to prevent fall?
+ */
 public class SubSystem {
     static LinearOpMode _linearOpMode;
-    static final int positionTolerence = 100;
+    static final int safetyExtenderPos = -150;
+    static final int positionTolerence = 15;
 
     public static void initialize(LinearOpMode linearOpMode)
     {
@@ -62,21 +74,38 @@ public class SubSystem {
         LiftMotors.stop();
     }
 
+    static boolean canRunExtender(int targetPosition) {
+        int currentPosition = LiftMotors.getCurrentPosition();
+        return targetPosition > currentPosition || currentPosition < safetyExtenderPos;
+    }
+
     public static void DriveAll(double drivePower, int drivePosition,
                                            double liftPower, int liftPosition,
                                            double extPower, int extPosition) {
         DrivePosSetup(drivePosition, liftPosition, extPosition);
         if (drivePower != 0) Drive.setPower(drivePower);
-        if (extPower != 0) ExtMotor.setPower(extPower);
+        if (extPower != 0 && canRunExtender(extPosition)) ExtMotor.setPower(extPower);
         if (liftPower != 0) LiftMotors.setPower(liftPower);
 
         while ((Drive.isBusy() || ExtMotor.isBusy() || LiftMotors.isBusy())
                 && !_linearOpMode.isStopRequested()) {
             if (drivePower != 0 && !Drive.isBusy()) Drive.stop();
-            if (extPower != 0 && !ExtMotor.isBusy()) ExtMotor.stop();
+
             if (liftPower != 0 && !LiftMotors.isBusy()) LiftMotors.stop();
+
+            if (canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
+            else if (extPower != 0 && !ExtMotor.isBusy()) ExtMotor.stop();
+
+            driveTelemetry();
+            liftTelemetry();
+            extTelemery(extPosition);
+            _linearOpMode.telemetry.update();
         }
 
+        driveTelemetry();
+        liftTelemetry();
+        extTelemery(extPosition);
+        _linearOpMode.telemetry.update();
         StopAll();
     }
 
@@ -102,7 +131,7 @@ public class SubSystem {
         }
         if (extPower != 0) {
             ExtPosSetup(extPosition);
-            ExtMotor.setPower(extPower);
+            if (canRunExtender(extPosition)) ExtMotor.setPower(extPower);
         }
         if (liftPower != 0) {
             LiftPosSetup(liftPosition);
@@ -111,11 +140,24 @@ public class SubSystem {
 
         while (!Drive.isAtEncoder() || ExtMotor.isBusy() || LiftMotors.isBusy()
                 && !_linearOpMode.isStopRequested()) {
+
             if ((frrlPower != 0 || flrrPower != 0) && Drive.isAtEncoder()) Drive.stop();
-            if (extPower != 0 && !ExtMotor.isBusy()) ExtMotor.stop();
+
             if (liftPower != 0 && !LiftMotors.isBusy()) LiftMotors.stop();
+
+            if (canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
+            else if (extPower != 0 && !ExtMotor.isBusy()) ExtMotor.stop();
+
+            driveTelemetry();
+            liftTelemetry();
+            extTelemery(extPosition);
+            _linearOpMode.telemetry.update();
         }
 
+        driveTelemetry();
+        liftTelemetry();
+        extTelemery(extPosition);
+        _linearOpMode.telemetry.update();
         StopAll();
     }
 
@@ -130,6 +172,10 @@ public class SubSystem {
             TurnRight(drivePower, targetDegrees, currentDegrees, liftPower, liftPosition, extPower, extPosition);
         }
 
+        driveTelemetry();
+        liftTelemetry();
+        extTelemery(extPosition);
+        _linearOpMode.telemetry.update();
         StopAll();
     }
 
@@ -142,7 +188,7 @@ public class SubSystem {
         }
         if (extPower != 0) {
             ExtPosSetup(extPosition);
-            ExtMotor.setPower(extPower);
+            if (canRunExtender(extPosition)) ExtMotor.setPower(extPower);
         }
         if (liftPower != 0) {
             LiftPosSetup(liftPosition);
@@ -154,8 +200,16 @@ public class SubSystem {
             currentDegrees = Gyro.getCurrentDegrees();
 
             if (drivePower != 0 && targetDegrees >= currentDegrees) Drive.stop();
-            if (extPower != 0 && !ExtMotor.isBusy()) ExtMotor.stop();
+
             if (liftPower != 0 && !LiftMotors.isBusy()) LiftMotors.stop();
+
+            if (canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
+            else if (extPower != 0 && !ExtMotor.isBusy()) ExtMotor.stop();
+
+            driveTelemetry();
+            liftTelemetry();
+            extTelemery(extPosition);
+            _linearOpMode.telemetry.update();
         }
     }
 
@@ -168,7 +222,7 @@ public class SubSystem {
         }
         if (extPower != 0) {
             ExtPosSetup(extPosition);
-            ExtMotor.setPower(extPower);
+            if (canRunExtender(extPosition)) ExtMotor.setPower(extPower);
         }
         if (liftPower != 0) {
             LiftPosSetup(liftPosition);
@@ -180,8 +234,50 @@ public class SubSystem {
             currentDegrees = Gyro.getCurrentDegrees();
 
             if (drivePower != 0 && targetDegrees <= currentDegrees) Drive.stop();
-            if (extPower != 0 && !ExtMotor.isBusy()) ExtMotor.stop();
+
             if (liftPower != 0 && !LiftMotors.isBusy()) LiftMotors.stop();
+
+            if (canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
+            else if (extPower != 0 && !ExtMotor.isBusy()) ExtMotor.stop();
+
+            driveTelemetry();
+            liftTelemetry();
+            extTelemery(extPosition);
+            _linearOpMode.telemetry.update();
         }
+    }
+
+    static void driveTelemetry() {
+        Map<String, Integer> positions = Drive.getCurrentPositions();
+        Map<String, Double> powers = Drive.getPowers();
+
+        _linearOpMode.telemetry.addLine("Drive");
+        for (Map.Entry<String, Integer> entry : positions.entrySet()) {
+            _linearOpMode.telemetry.addData(entry.getKey(), entry.getValue());
+        }
+        _linearOpMode.telemetry.addLine("");
+        for (Map.Entry<String, Double> entry : powers.entrySet()) {
+            _linearOpMode.telemetry.addData(entry.getKey(), entry.getValue());
+        }
+
+        _linearOpMode.telemetry.addLine("");
+        _linearOpMode.telemetry.addData("deg", Gyro.getCurrentDegrees());
+    }
+
+    static void liftTelemetry() {
+        Map<String, Integer> positions = LiftMotors.getCurrentPositions();
+
+        _linearOpMode.telemetry.addLine("Lift");
+        for (Map.Entry<String, Integer> entry : positions.entrySet()) {
+            _linearOpMode.telemetry.addData(entry.getKey(), entry.getValue());
+        }
+    }
+
+    static void extTelemery(int target) {
+        int position = ExtMotor.getCurrentPosition();
+
+        _linearOpMode.telemetry.addLine("Extension");
+        _linearOpMode.telemetry.addData("enabled", canRunExtender(target));
+        _linearOpMode.telemetry.addData("pos", position);
     }
 }
