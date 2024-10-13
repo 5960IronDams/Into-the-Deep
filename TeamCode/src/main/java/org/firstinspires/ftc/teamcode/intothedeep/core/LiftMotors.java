@@ -4,6 +4,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.Map;
+
 public class LiftMotors {
     static DcMotor _mLeft;
     static DcMotor _mRight;
@@ -34,9 +38,16 @@ public class LiftMotors {
         setPower(power, power);
     }
 
-    private static void setPower(double left, double right) {
+    static void setPower(double left, double right) {
         _mLeft.setPower(left);
         _mRight.setPower(right);
+    }
+
+    public static Map<String, Double> getPowers() {
+        Hashtable<String, Double> powers = new Hashtable<>();
+        powers.put("right", _mRight.getPower());
+        powers.put("left", _mLeft.getPower());
+        return powers;
     }
 
     public static void setPositionTolerance(int tolerance) {
@@ -59,6 +70,13 @@ public class LiftMotors {
 
     public static int getCurrentPosition() {
         return _mLeft.getCurrentPosition();
+    }
+
+    public static Map<String, Integer> getCurrentPositions() {
+        Hashtable<String, Integer> positions = new Hashtable<>();
+        positions.put("right", _mRight.getCurrentPosition());
+        positions.put("left", _mLeft.getCurrentPosition());
+        return positions;
     }
 
     public static void setTargetPosition(int pos) {

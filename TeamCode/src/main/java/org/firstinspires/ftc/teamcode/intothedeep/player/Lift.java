@@ -28,4 +28,8 @@ public class Lift {
         _linearOpMode.telemetry.addData("Power", power);
         _linearOpMode.telemetry.addData("Encoder", LiftMotors.getCurrentPosition());
     }
+
+    public static String getActiveGovenor() {
+        return _govenor.toString();
+    }
 }

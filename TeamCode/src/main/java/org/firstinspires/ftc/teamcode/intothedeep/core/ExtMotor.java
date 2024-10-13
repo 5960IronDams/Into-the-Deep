@@ -29,6 +29,10 @@ public class ExtMotor {
         _mExt.setPower(power);
     }
 
+    public static double getPower() {
+        return  _mExt.getPower();
+    }
+
     public static boolean isBusy() {
         return _mExt.isBusy();
     }

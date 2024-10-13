@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class Drive {
     static DcMotor _mFrontLeft;
@@ -54,6 +55,22 @@ public class Drive {
         _mRearRight.setPower(rrp);
     }
 
+    public static void setRRPower(double power) {
+        _mRearRight.setPower(power);
+    }
+
+    public static void setRLPower(double power) {
+        _mRearLeft.setPower(power);
+    }
+
+    public static void setFRPower(double power) {
+        _mFrontRight.setPower(power);
+    }
+
+    public static void setFLPower(double power) {
+        _mFrontLeft.setPower(power);
+    }
+
     public static void setPositionTolerance(int tolerance) {
         ((DcMotorEx) _mFrontLeft).setTargetPositionTolerance(tolerance);
         ((DcMotorEx) _mFrontRight).setTargetPositionTolerance(tolerance);
@@ -62,7 +79,7 @@ public class Drive {
     }
 
     public static boolean isBusy() {
-        return _mFrontLeft.isBusy() || _mFrontRight.isBusy() || _mRearLeft.isBusy() || _mRearRight.isBusy();
+        return _mFrontLeft.isBusy(); //|| _mFrontRight.isBusy() || _mRearLeft.isBusy() || _mRearRight.isBusy();
     }
 
     public static boolean isAtEncoder() {
@@ -79,6 +96,16 @@ public class Drive {
         return _mFrontLeft.getCurrentPosition();
     }
 
+    public static Map<String, Integer> getCurrentPositions() {
+        Map<String, Integer> positions = new Hashtable<>();
+        positions.put("flp", _mFrontLeft.getCurrentPosition());
+        positions.put("frp", _mFrontRight.getCurrentPosition());
+        positions.put("rlp", _mRearLeft.getCurrentPosition());
+        positions.put("rrp", -_mRearRight.getCurrentPosition());
+
+        return positions;
+    }
+
     public static void setTargetPosition(int pos) {
         setTargetPosition(pos, pos, pos, pos);
     }
@@ -89,8 +116,8 @@ public class Drive {
         _mRearLeft.setTargetPosition(rlp);
         _mRearRight.setTargetPosition(rrp);
     }
-    public static Dictionary<String, Double> getPowers(){
-        Dictionary<String, Double> powers = new Hashtable<>();
+    public static Map<String, Double> getPowers(){
+        Map<String, Double> powers = new Hashtable<>();
         powers.put("flp", _mFrontLeft.getPower());
         powers.put("frp", _mFrontRight.getPower());
         powers.put("rlp", _mRearLeft.getPower());
