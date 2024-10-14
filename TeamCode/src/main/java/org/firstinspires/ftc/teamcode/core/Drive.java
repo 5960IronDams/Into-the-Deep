@@ -82,7 +82,8 @@ public class Drive {
     }
 
     public static boolean isAtEncoder() {
-        return Math.abs(_mFrontLeft.getCurrentPosition()) >= Math.abs(_mFrontLeft.getTargetPosition());
+        return Math.abs(_mFrontLeft.getCurrentPosition()) >= Math.abs(_mFrontLeft.getTargetPosition()) ||
+                Math.abs(_mFrontRight.getCurrentPosition()) >= Math.abs(_mFrontRight.getTargetPosition());
 //        if (_mFrontLeft.getPower() < 0)
 //            return _mFrontLeft.getCurrentPosition() <= _mFrontLeft.getTargetPosition();
 //        else if (_mFrontLeft.getPower() > 0)

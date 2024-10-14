@@ -13,10 +13,10 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
 
-        SubSystem.DriveAll(0.4, 1000, 0.6, -500, 0, 0);
+//       SubSystem.DriveAll(0.4, -1000, 0.6, -950, 0.2, -350);
 //        SubSystem.TurnAll(0.4, 90, 0, 1, 0, 1);
-//        SubSystem.StrafeAll(0.4, 250, 0, 1, 0, 1);
-//        SubSystem.StrafeAll(0.4, 0.4, 0, 0, 1,0 ,1);
+//        SubSystem.StrafeAll(0.4, -1000, 0.6, -950, 0.2, -350);
+      SubSystem.StrafeAll(0.4, 0, -1000, 0, 0,0.2 ,-350);
 
         sleep(30000);
     }

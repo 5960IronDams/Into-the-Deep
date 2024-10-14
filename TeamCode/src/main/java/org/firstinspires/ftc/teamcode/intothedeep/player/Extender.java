@@ -10,8 +10,8 @@ public class Extender {
     static LinearOpMode _linearOpMode;
 
     static Govenor _govenor;
-    static final double _max_govenor = 0.6;
-    static final double _min_govenor = 0.35;
+    static final double _max_govenor = 1;
+    static final double _min_govenor = 0.6;
 
     public static void initialize(LinearOpMode linearOpMode, DcMotor.RunMode runMode) {
         _linearOpMode = linearOpMode;
