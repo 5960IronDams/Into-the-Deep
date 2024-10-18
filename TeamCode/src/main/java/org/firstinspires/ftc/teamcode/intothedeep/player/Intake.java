@@ -16,6 +16,13 @@ public class Intake {
         _linearOpMode.telemetry.addData("ClawPosition", _mClaw.getPosition());
     }
 
+    public static void open (){
+        _mClaw.setPosition(_clawMaxRange);
+    }
+
+    public static void close (){
+        _mClaw.setPosition(_clawMinimumRange);
+    }
     public static double getPosition() {
         return _mClaw.getPosition();
     }
