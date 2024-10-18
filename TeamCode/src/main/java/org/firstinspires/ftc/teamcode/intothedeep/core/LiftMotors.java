@@ -55,7 +55,7 @@ public class LiftMotors {
     }
 
     public static boolean isBusy() {
-        return _mLeft.isBusy();  //|| _mRight.isBusy();
+        return _mLeft.isBusy() && _mRight.isBusy();
     }
 
     public static int getCurrentPosition() {
