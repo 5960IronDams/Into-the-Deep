@@ -26,7 +26,7 @@ import java.util.Map;
 public class SubSystem {
     static LinearOpMode _linearOpMode;
     static final int safetyExtenderPos = -500;
-    static final int positionTolerence = 15;
+    static final int positionTolerence = 100;
 
     public static void initialize(LinearOpMode linearOpMode)
     {
@@ -43,13 +43,13 @@ public class SubSystem {
 
     static void ExtPosSetup(int position) {
         ExtMotor.setTargetPosition(position);
-        ExtMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       // ExtMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ExtMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     static void LiftPosSetup(int position) {
         LiftMotors.setTargetPosition(position);
-        LiftMotors.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       // LiftMotors.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LiftMotors.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
@@ -157,7 +157,10 @@ public class SubSystem {
 
             if ((frrlPower != 0 || flrrPower != 0) && Drive.isAtEncoder()) Drive.stop();
 
-            if (liftPower != 0 && !LiftMotors.isBusy()) LiftMotors.stop();
+            if (liftPower != 0 && !LiftMotors.isBusy()) {
+                LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                LiftMotors.stop();
+            }
 
             if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
             else if (extPower != 0 && !ExtMotor.isBusy()) {

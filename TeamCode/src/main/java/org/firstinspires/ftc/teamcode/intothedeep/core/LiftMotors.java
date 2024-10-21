@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.intothedeep.core;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -55,6 +57,8 @@ public class LiftMotors {
     }
 
     public static boolean isBusy() {
+        Log.d("5960", "left;" + _mLeft.isBusy() + ", right;" + _mRight.isBusy());
+        Log.d("5960", "left;" + _mLeft.getCurrentPosition() + ", right;" + _mRight.getCurrentPosition());
         return _mLeft.isBusy() && _mRight.isBusy();
     }
 
