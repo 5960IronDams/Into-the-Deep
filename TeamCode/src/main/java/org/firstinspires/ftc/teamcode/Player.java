@@ -7,8 +7,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.core.Drive;
 import org.firstinspires.ftc.teamcode.core.player.Mecanum;
 import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
+import org.firstinspires.ftc.teamcode.intothedeep.core.GnashMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Extender;
+import org.firstinspires.ftc.teamcode.intothedeep.player.Gnasher;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Lift;
 
@@ -24,6 +26,7 @@ public class Player extends LinearOpMode {
         Intake.initialize(this);
         Extender.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Lift.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Gnasher.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         waitForStart();
 
         while (opModeIsActive()) {
@@ -51,10 +54,16 @@ public class Player extends LinearOpMode {
             /* gamepad2.right_stick_y
              * gamepad2.right_trigger - Governor  */
             Extender.run();
-
+//HI
             telemetry.addLine("Extender");
             telemetry.addData("gov", Extender.getActiveGovenor());
             telemetry.addData("pow", ExtMotor.getPower());
+
+            Gnasher.run();
+
+            telemetry.addLine("The Ghastly Gnasher");
+//            telemetry.addData("gov", Extender.getActiveGovenor());
+            telemetry.addData("pow", GnashMoter.getPower());
 
             /* gamepad2.left_stick_y
              * gamepad2.left_trigger - Govenor */
@@ -63,7 +72,7 @@ public class Player extends LinearOpMode {
             telemetry.addLine("Lift");
             telemetry.addData("gov", Lift.getActiveGovenor());
             Map<String, Double> powers = LiftMotors.getPowers();
-            telemetry.addData("right", powers.get("right"));
+//            telemetry.addData("right", powers.get("right"));
             telemetry.addData("left", powers.get("left"));
 
             telemetry.update();
