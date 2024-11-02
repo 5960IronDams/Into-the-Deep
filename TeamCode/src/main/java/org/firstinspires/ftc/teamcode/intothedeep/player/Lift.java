@@ -20,7 +20,7 @@ public class Lift {
     }
 
     public static void run() {
-        if (_govenor.setActive(_linearOpMode.gamepad2.left_trigger)) _linearOpMode.sleep(_govenor.getSleepDelay());
+        if (_govenor.setActive(_linearOpMode.gamepad2.left_bumper? 1 : 0)) _linearOpMode.sleep(_govenor.getSleepDelay());
         double power = _linearOpMode.gamepad2.left_stick_y * _govenor.getActive();
 
         LiftMotors.setPower(power);

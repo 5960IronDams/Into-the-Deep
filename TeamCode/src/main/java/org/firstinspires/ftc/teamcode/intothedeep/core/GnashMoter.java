@@ -5,20 +5,20 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class GnashMoter {
-    static DcMotor _mExt;
+    static DcMotor _mGnash;
 
     public static void initialize(HardwareMap hardwareMap, DcMotor.RunMode runMode) {
-        _mExt = hardwareMap.get(DcMotor.class, "The_Ghastly_Gnasher");
+        _mGnash = hardwareMap.get(DcMotor.class, "The_Ghastly_Gnasher");
 
-        _mExt.setDirection(DcMotor.Direction.FORWARD);
+        _mGnash.setDirection(DcMotor.Direction.FORWARD);
 
-        _mExt.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        _mGnash.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         setMode(runMode);
     }
 
     public static void setMode(DcMotor.RunMode mode) {
-        _mExt.setMode(mode);
+        _mGnash.setMode(mode);
     }
 
     public static void stop() {
@@ -26,26 +26,26 @@ public class GnashMoter {
     }
 
     public static void setPower(double power) {
-        _mExt.setPower(power);
+        _mGnash.setPower(power);
     }
 
     public static double getPower() {
-        return  _mExt.getPower();
+        return  _mGnash.getPower();
     }
 
     public static boolean isBusy() {
-        return _mExt.isBusy();
+        return _mGnash.isBusy();
     }
 
     public static void setPositionTolerance(int tolerance) {
-        ((DcMotorEx) _mExt).setTargetPositionTolerance(tolerance);
+        ((DcMotorEx) _mGnash).setTargetPositionTolerance(tolerance);
     }
 
     public static int getCurrentPosition() {
-        return _mExt.getCurrentPosition();
+        return _mGnash.getCurrentPosition();
     }
 
     public static void setTargetPosition(int pos) {
-        _mExt.setTargetPosition(pos);
+        _mGnash.setTargetPosition(pos);
     }
 }

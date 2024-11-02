@@ -7,9 +7,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.core.Drive;
 import org.firstinspires.ftc.teamcode.core.autonomous.Gyro;
 import org.firstinspires.ftc.teamcode.core.player.Mecanum;
+import org.firstinspires.ftc.teamcode.intothedeep.core.ClipperThingamabobberMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
 import org.firstinspires.ftc.teamcode.intothedeep.core.GnashMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
+import org.firstinspires.ftc.teamcode.intothedeep.player.ClipperThingamabobber;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Extender;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Gnasher;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
@@ -32,6 +34,9 @@ public class TroubleShooter extends LinearOpMode {
 
         Gnasher.initialize(this, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         GnashMoter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        ClipperThingamabobber.initialize(this, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ClipperThingamabobberMoter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         Lift.initialize(this, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -72,15 +77,18 @@ public class TroubleShooter extends LinearOpMode {
 
             Gnasher.run();
             telemetry.addLine("The Ghastly Gnasher");
-//            telemetry.addData("gov", Extender.getActiveGovenor());
             telemetry.addData("pos", GnashMoter.getCurrentPosition());
+            ClipperThingamabobber.run();
+            telemetry.addLine("Clipper Thingamabobber");
+//            telemetry.addData("pos", ClipperThingamabobberMoter.getCurrentPosition());
 
             telemetry.addLine("Gyro Angle");
             telemetry.addData("degree", Gyro.getCurrentDegrees());
 
             Intake.run();
-            telemetry.addLine("Intake Position");
+            telemetry.addLine("Claw");
             telemetry.addData("pos", Intake.getPosition());
+            telemetry.addData("open or closed", Intake.getOpenOrClosed());
 
             telemetry.update();
         }

@@ -22,9 +22,9 @@ public class Gnasher {
 
     public static void run() {
         double _DPadPower = 0;
-        if(_linearOpMode.gamepad2.dpad_up == true){
+        if(_govenor.setActive(_linearOpMode.gamepad2.left_trigger)){
             _DPadPower = 1;
-        }else if(_linearOpMode.gamepad2.dpad_down == true){
+        }else if(_govenor.setActive(_linearOpMode.gamepad2.right_trigger)){
             _DPadPower = -1;
         }else{
             _DPadPower = 0;
