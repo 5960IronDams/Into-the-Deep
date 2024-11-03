@@ -17,14 +17,14 @@ public class Auto extends LinearOpMode {
         waitForStart();
 
         //move to place element on bar
-        SubSystem.StrafeAll(0.4, -0.22, -1600, 0.5, -1060,0 ,0);
+        SubSystem.StrafeAll(0.4, -0.22, -1600, 0.5, -1060,0 ,0,0,0);
         Intake.open();
         sleep(500);
-        SubSystem.DriveAll(0.4, 250, 0.2, 0,0 ,0);
+        SubSystem.DriveAll(0.4, 250, 0.2, 0,0 ,0,0,0);
         sleep(200);
-        SubSystem.StrafeAll(0.4, 1800, 0, 0,0 ,0);
+        SubSystem.StrafeAll(0.4, 1800, 0, 0,0 ,0,0,0);
         sleep(200);
-        SubSystem.StrafeAll(0, 0, 0.5, -50,0.2 ,-25);
+        SubSystem.StrafeAll(0, 0, 0.5, -50,0.2 ,-25,0,0);
        // SubSystem.TurnAll(0.4, -35, 0, 0, 0, 0);
 //       SubSystem.DriveAll(0.4, -1000, 0.6, -950, 0.2, -350);
 //       SubSystem.TurnAll(0.4, 90, 0, 0, 0, 0);

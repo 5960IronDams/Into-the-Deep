@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
 public class Lift {
     static LinearOpMode _linearOpMode;
 
+    static final int minEncoderLimit = -3850;
+
     static Govenor _govenor;
     static final double _max_govenor = 0.6;
     static final double _min_govenor = 0.35;
@@ -22,6 +24,8 @@ public class Lift {
     public static void run() {
         if (_govenor.setActive(_linearOpMode.gamepad2.left_bumper? 1 : 0)) _linearOpMode.sleep(_govenor.getSleepDelay());
         double power = _linearOpMode.gamepad2.left_stick_y * _govenor.getActive();
+
+        if (power < 0 && LiftMotors.getCurrentPosition() <= minEncoderLimit) power = 0;
 
         LiftMotors.setPower(power);
         _linearOpMode.telemetry.addLine("Lift");

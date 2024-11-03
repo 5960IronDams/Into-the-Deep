@@ -25,7 +25,8 @@ public class Player extends LinearOpMode {
         Mecanum.initialize(this);
         Intake.initialize(this);
         Extender.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Lift.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Lift.initialize(this, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Gnasher.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         waitForStart();
 
@@ -73,7 +74,8 @@ public class Player extends LinearOpMode {
             telemetry.addData("gov", Lift.getActiveGovenor());
             Map<String, Double> powers = LiftMotors.getPowers();
 //            telemetry.addData("right", powers.get("right"));
-            telemetry.addData("left", powers.get("left"));
+            telemetry.addData("power", powers.get("left"));
+            telemetry.addData("pos", LiftMotors.getCurrentPosition());
 
             telemetry.update();
         }

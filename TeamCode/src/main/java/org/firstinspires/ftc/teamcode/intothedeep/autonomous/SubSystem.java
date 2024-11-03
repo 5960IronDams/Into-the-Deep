@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.Drive;
 import org.firstinspires.ftc.teamcode.core.autonomous.Gyro;
 import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
+import org.firstinspires.ftc.teamcode.intothedeep.core.GnashMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Lift;
 
@@ -34,11 +35,13 @@ public class SubSystem {
         Drive.initialize(linearOpMode.hardwareMap, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LiftMotors.initialize(linearOpMode.hardwareMap, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ExtMotor.initialize(linearOpMode.hardwareMap, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        GnashMoter.initialize(linearOpMode.hardwareMap, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Gyro.initialization(linearOpMode.hardwareMap);
 
         Drive.setPositionTolerance(positionTolerence);
         LiftMotors.setPositionTolerance(positionTolerence);
         ExtMotor.setPositionTolerance(positionTolerence);
+        GnashMoter.setPositionTolerance(positionTolerence);
     }
 
     static void ExtPosSetup(int position) {
@@ -53,13 +56,19 @@ public class SubSystem {
         LiftMotors.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    static void DrivePosSetup(int drivePosition, int liftPosition, int extPosition) {
+    static void GnasherPosSetup(int position) {
+        GnashMoter.setTargetPosition(position);
+        GnashMoter.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    static void DrivePosSetup(int drivePosition, int liftPosition, int extPosition, int gnasherPosition) {
         Drive.setTargetPosition(drivePosition);
         Drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         LiftPosSetup(liftPosition);
         ExtPosSetup(extPosition);
+        GnasherPosSetup(gnasherPosition);
     }
 
     static void DriveStrafeSetup(int targetTicks) {
@@ -76,6 +85,7 @@ public class SubSystem {
         Drive.stop();
         ExtMotor.stop();
         LiftMotors.stop();
+        GnashMoter.stop();
     }
 
     static boolean canRunExtender(int targetPosition) {
@@ -85,21 +95,25 @@ public class SubSystem {
 
     public static void DriveAll(double drivePower, int drivePosition,
                                            double liftPower, int liftPosition,
-                                           double extPower, int extPosition) {
+                                           double extPower, int extPosition,
+                                           double gnasherPower, int gnasherPosition) {
 
         boolean isMoving;
         isMoving = true;
 
-        DrivePosSetup(drivePosition, liftPosition, extPosition);
+        DrivePosSetup(drivePosition, liftPosition, extPosition, gnasherPosition);
         if (drivePower != 0) Drive.setPower(drivePower);
         if (extPower != 0 && canRunExtender(extPosition)) ExtMotor.setPower(extPower);
         if (liftPower != 0) LiftMotors.setPower(liftPower);
+        if (gnasherPosition != 0) GnashMoter.setPower(gnasherPower);
 
-        while ((Drive.isBusy() || ExtMotor.isBusy() || LiftMotors.isBusy())
+        while ((Drive.isBusy() || ExtMotor.isBusy() || LiftMotors.isBusy() || GnashMoter.isBusy())
                 && !_linearOpMode.isStopRequested()) {
             if (drivePower != 0 && !Drive.isBusy()) Drive.stop();
 
             if (liftPower != 0 && !LiftMotors.isBusy()) LiftMotors.stop();
+
+            if (gnasherPower != 0 && !GnashMoter.isBusy()) GnashMoter.stop();
 
             if (canRunExtender(extPosition) && isMoving && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
             else if (extPower != 0 && !ExtMotor.isBusy()) {
@@ -110,27 +124,31 @@ public class SubSystem {
             driveTelemetry();
             liftTelemetry();
             extTelemery(extPosition);
+            gnasherTelemery();
             _linearOpMode.telemetry.update();
         }
 
         driveTelemetry();
         liftTelemetry();
         extTelemery(extPosition);
+        gnasherTelemery();
         _linearOpMode.telemetry.update();
         StopAll();
     }
 
     public static void StrafeAll(double drivePower, int targetTicks,
                                        double liftPower, int liftPosition,
-                                       double extPower, int extPosition) {
-        StrafeAll(drivePower, drivePower, targetTicks, liftPower, liftPosition, extPower, extPosition);
+                                       double extPower, int extPosition,
+                                       double gnasherPower, int gnasherPosition) {
+        StrafeAll(drivePower, drivePower, targetTicks, liftPower, liftPosition, extPower, extPosition, gnasherPower, gnasherPosition);
     }
 
     /* frrlPower Front Right & Rear Left
      * flrrPower Front Left & Rear Right */
     public static void StrafeAll(double frrlPower, double flrrPower, int targetTicks,
                                  double liftPower, int liftPosition,
-                                 double extPower, int extPosition) {
+                                 double extPower, int extPosition,
+                                 double gnasherPower, int gnasherPosition) {
 
         boolean isMoving = true;
 
@@ -152,7 +170,12 @@ public class SubSystem {
             LiftMotors.setPower(liftPower);
         }
 
-        while (!Drive.isAtEncoder() || ExtMotor.isBusy() || LiftMotors.isBusy()
+        if (gnasherPower != 0) {
+            GnasherPosSetup(gnasherPosition);
+            GnashMoter.setPower(gnasherPower);
+        }
+
+        while ((!Drive.isAtEncoder() || ExtMotor.isBusy() || LiftMotors.isBusy() || GnashMoter.isBusy())
                 && !_linearOpMode.isStopRequested()) {
 
             if ((frrlPower != 0 || flrrPower != 0) && Drive.isAtEncoder()) Drive.stop();
@@ -160,6 +183,10 @@ public class SubSystem {
             if (liftPower != 0 && !LiftMotors.isBusy()) {
                 LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 LiftMotors.stop();
+            }
+
+            if (gnasherPower != 0 && !GnashMoter.isBusy()) {
+                GnashMoter.stop();
             }
 
             if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
@@ -171,37 +198,42 @@ public class SubSystem {
             driveTelemetry();
             liftTelemetry();
             extTelemery(extPosition);
+            gnasherTelemery();
             _linearOpMode.telemetry.update();
         }
 
         driveTelemetry();
         liftTelemetry();
         extTelemery(extPosition);
+        gnasherTelemery();
         _linearOpMode.telemetry.update();
         StopAll();
     }
 
     public static void TurnAll(double drivePower, double targetDegrees,
                                double liftPower, int liftPosition,
-                               double extPower, int extPosition) {
+                               double extPower, int extPosition,
+                               double gnasherPower, int gnasherPosition) {
         double currentDegrees = Gyro.getCurrentDegrees();
 
         if (targetDegrees < currentDegrees) {
-            TurnLeft(drivePower, targetDegrees, currentDegrees, liftPower, liftPosition, extPower, extPosition);
+            TurnLeft(drivePower, targetDegrees, currentDegrees, liftPower, liftPosition, extPower, extPosition, gnasherPower, gnasherPosition);
         } else {
-            TurnRight(drivePower, targetDegrees, currentDegrees, liftPower, liftPosition, extPower, extPosition);
+            TurnRight(drivePower, targetDegrees, currentDegrees, liftPower, liftPosition, extPower, extPosition, gnasherPower, gnasherPosition);
         }
 
         driveTelemetry();
         liftTelemetry();
         extTelemery(extPosition);
+        gnasherTelemery();
         _linearOpMode.telemetry.update();
         StopAll();
     }
 
     static void TurnLeft(double drivePower, double targetDegrees, double currentDegrees,
                          double liftPower, int liftPosition,
-                         double extPower, int extPosition) {
+                         double extPower, int extPosition,
+                         double gnasherPower, int gnasherPosition) {
 
         boolean isMoving;
 
@@ -219,6 +251,10 @@ public class SubSystem {
             LiftPosSetup(liftPosition);
             LiftMotors.setPower(liftPower);
         }
+        if (gnasherPower != 0) {
+            GnasherPosSetup(gnasherPosition);
+            GnashMoter.setPower(gnasherPower);
+        }
 
         while ((targetDegrees < currentDegrees || ExtMotor.isBusy() || LiftMotors.isBusy())
                 && !_linearOpMode.isStopRequested()) {
@@ -228,9 +264,10 @@ public class SubSystem {
 
             if (liftPower != 0 && !LiftMotors.isBusy()) LiftMotors.stop();
 
+            if (gnasherPower != 0 && !GnashMoter.isBusy()) GnashMoter.stop();
+
             if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
             else if (extPower != 0 && !ExtMotor.isBusy()) {
-
                 ExtMotor.stop();
                 isMoving = false;
             }
@@ -238,13 +275,15 @@ public class SubSystem {
             driveTelemetry();
             liftTelemetry();
             extTelemery(extPosition);
+            gnasherTelemery();
             _linearOpMode.telemetry.update();
         }
     }
 
     static void TurnRight(double drivePower, double targetDegrees, double currentDegrees,
                          double liftPower, int liftPosition,
-                         double extPower, int extPosition) {
+                         double extPower, int extPosition,
+                          double gnasherPower, int gnasherPosition) {
 
         boolean isMoving;
         isMoving = true;
@@ -260,6 +299,10 @@ public class SubSystem {
             LiftPosSetup(liftPosition);
             LiftMotors.setPower(liftPower);
         }
+        if (gnasherPower != 0) {
+            GnasherPosSetup(gnasherPosition);
+            GnashMoter.setPower(gnasherPower);
+        }
 
         while ((targetDegrees > currentDegrees || ExtMotor.isBusy() || LiftMotors.isBusy())
                 && !_linearOpMode.isStopRequested()) {
@@ -268,6 +311,8 @@ public class SubSystem {
             if (drivePower != 0 && targetDegrees <= currentDegrees) Drive.stop();
 
             if (liftPower != 0 && !LiftMotors.isBusy()) LiftMotors.stop();
+
+            if (gnasherPower != 0 && !GnashMoter.isBusy()) GnashMoter.stop();
 
             if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
             else if (extPower != 0 && !ExtMotor.isBusy())
@@ -279,6 +324,7 @@ public class SubSystem {
             driveTelemetry();
             liftTelemetry();
             extTelemery(extPosition);
+            gnasherTelemery();
             _linearOpMode.telemetry.update();
         }
     }
@@ -318,5 +364,11 @@ public class SubSystem {
         _linearOpMode.telemetry.addData("enabled", canRunExtender(target));
         _linearOpMode.telemetry.addData("pos", position);
         _linearOpMode.telemetry.addData("is busy", ExtMotor.isBusy());
+    }
+
+    static void gnasherTelemery() {
+        _linearOpMode.telemetry.addLine("Gnasher");
+        _linearOpMode.telemetry.addData("pos", GnashMoter.getCurrentPosition());
+        _linearOpMode.telemetry.addData("is busy", GnashMoter.isBusy());
     }
 }

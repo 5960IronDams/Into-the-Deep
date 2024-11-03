@@ -42,4 +42,12 @@ public class ClipperThingamabobberMoter {
     public static void setPositionTolerance(int tolerance) {
         ((DcMotorEx) _mClipperThingamabobber).setTargetPositionTolerance(tolerance);
     }
+
+    public static int getCurrentPosition() {
+        return _mClipperThingamabobber.getCurrentPosition();
+    }
+
+    public static void setTargetPosition(int pos) {
+        _mClipperThingamabobber.setTargetPosition(pos);
+    }
 }

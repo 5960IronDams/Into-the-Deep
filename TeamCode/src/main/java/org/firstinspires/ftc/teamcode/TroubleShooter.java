@@ -78,9 +78,10 @@ public class TroubleShooter extends LinearOpMode {
             Gnasher.run();
             telemetry.addLine("The Ghastly Gnasher");
             telemetry.addData("pos", GnashMoter.getCurrentPosition());
+
             ClipperThingamabobber.run();
             telemetry.addLine("Clipper Thingamabobber");
-//            telemetry.addData("pos", ClipperThingamabobberMoter.getCurrentPosition());
+            telemetry.addData("pos", ClipperThingamabobberMoter.getCurrentPosition());
 
             telemetry.addLine("Gyro Angle");
             telemetry.addData("degree", Gyro.getCurrentDegrees());
