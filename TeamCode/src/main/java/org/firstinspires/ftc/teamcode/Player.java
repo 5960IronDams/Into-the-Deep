@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Extender;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Gnasher;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
+import org.firstinspires.ftc.teamcode.intothedeep.player.Latcher;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Lift;
 
 import java.util.Map;
@@ -27,7 +28,9 @@ public class Player extends LinearOpMode {
         Extender.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Lift.initialize(this, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Latcher.initialize(this);
         Gnasher.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Latcher.close();
         waitForStart();
 
         while (opModeIsActive()) {

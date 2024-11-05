@@ -21,7 +21,7 @@ import java.util.Map;
  *   To prevent the extender from running into the ground are saying it can't run until the lift's
  *      Positive for rotation is left (:
  *      encoder is < the safetyExtenderPos variable value
- *
+ *  positive position (Gnasher) is up
  * We need a counter on the lift to prevent fall?
  */
 public class SubSystem {

@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.player.ClipperThingamabobber;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Extender;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Gnasher;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
+import org.firstinspires.ftc.teamcode.intothedeep.player.Latcher;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Lift;
 
 import java.util.Map;
@@ -44,7 +45,9 @@ public class TroubleShooter extends LinearOpMode {
         Intake.initialize(this);
 
         Gyro.initialization(hardwareMap);
+        Latcher.initialize(this);
 
+        Latcher.close();
         waitForStart();
 
         while (opModeIsActive()) {
