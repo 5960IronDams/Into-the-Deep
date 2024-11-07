@@ -6,14 +6,14 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Intake {
     static LinearOpMode _linearOpMode;
     static Servo _mClaw;
-    public static boolean _openOrClosed;
-    public final static double _clawMinimumRange = 0.15;
-    public final static double _clawMaxRange = 1.5;
+//    public static boolean _openOrClosed;
+    public final static double _clawMinimumRange = 0.0;
+    public final static double _clawMaxRange = 0.5;
 
     public static void initialize(LinearOpMode linearOpMode) {
         _linearOpMode = linearOpMode;
         _mClaw = linearOpMode.hardwareMap.servo.get("claw");
-        _mClaw.setPosition(_clawMinimumRange);
+        _mClaw.close();
         _linearOpMode.telemetry.addData("ClawPosition", _mClaw.getPosition());
     }
 
@@ -24,9 +24,9 @@ public class Intake {
     public static void close (){
         _mClaw.setPosition(_clawMinimumRange);
     }
-    public static boolean getOpenOrClosed() {
-        return _openOrClosed;
-    }
+//    public static boolean getOpenOrClosed() {
+//        return _openOrClosed;
+//    }
     public static double getPosition() {
         return _mClaw.getPosition();
     }
@@ -34,11 +34,11 @@ public class Intake {
     public static void run() {
 
         if (_linearOpMode.gamepad2.right_bumper) {
-            _mClaw.setPosition(_clawMaxRange);
-            _openOrClosed = true;
-        } else {
-            _mClaw.setPosition(_clawMinimumRange);
-            _openOrClosed = false;
+            open();
+//            _openOrClosed = true;
+        } else if (_linearOpMode.gamepad2.left_bumper) {
+            close();
+//            _openOrClosed = false;
         }
     }
 }

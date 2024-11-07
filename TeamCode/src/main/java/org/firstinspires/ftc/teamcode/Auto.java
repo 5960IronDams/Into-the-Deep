@@ -19,7 +19,21 @@ public class Auto extends LinearOpMode {
         Latcher.close();
         waitForStart();
 
-        SubSystem.DriveAll(0,0,0,0,0,0,0.4,250);
+        SubSystem.DriveAll(0.4, -1400, 0, 0, 0,0 ,0.8,1980);
+        SubSystem.DriveAll(0, 0, 0, 0,0 ,0,1,1000);
+        SubSystem.StrafeAll(0.4, 0.1, 2200, 0, 0,0 ,0,1,0);
+        SubSystem.TurnAll(0.4, -175, 0, 0, 0, 0, 0, 0);
+        SubSystem.StrafeAll(0.4, -1000, 0, 0,0 ,0,0,0);
+        SubSystem.DriveAll(0.8, -450, 0, 0, 0,0 ,0,0);
+        SubSystem.DriveAll(0, 0, 0, 0,0 ,0,0.4,400);
+        SubSystem.StrafeAll(0.4, 0.1, 2200, 0, 0,0 ,0,0,0);
+        SubSystem.TurnAll(0.3, -8, 0, 0, 0, 0, 0, 0);
+        SubSystem.StrafeAll(0.4, -1000, 0, 0,0 ,0,0.8,1980);
+        SubSystem.DriveAll(0.4, -200, 0, 0, 0,0 ,0.8,1980);
+        SubSystem.DriveAll(0, 0, 0, 0,0 ,0,1,1000);
+        SubSystem.StrafeAll(0.4, 0.1, 1600, 0, 0,0 ,0,1,0);
+        SubSystem.DriveAll(0.4, -1900, 0, 0, 0,0 ,0,0);
+//        SubSystem.DriveAll(0,0,0,0,0,0,0.4,250);
 
         //move to place element on bar
 //        SubSystem.StrafeAll(0.4, -0.22, -1600, 0.5, -1060,0 ,0,0,0);

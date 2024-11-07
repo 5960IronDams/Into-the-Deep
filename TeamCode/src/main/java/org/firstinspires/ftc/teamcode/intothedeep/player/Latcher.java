@@ -7,8 +7,8 @@ public class Latcher {
     static LinearOpMode _linearOpMode;
     static Servo _mLatcher;
     public static boolean _openOrClosed;
-    public final static double _clawMinimumRange = 1;
-    public final static double _clawMaxRange = 1;
+    public final static double _clawMinimumRange = 0.8;
+    public final static double _clawMaxRange = 0.8;
 
     public static void initialize(LinearOpMode linearOpMode) {
         _linearOpMode = linearOpMode;

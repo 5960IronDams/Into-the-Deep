@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.core.autonomous.Gyro;
 import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
 import org.firstinspires.ftc.teamcode.intothedeep.core.GnashMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
+import org.firstinspires.ftc.teamcode.intothedeep.player.Gnasher;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Lift;
 
 import java.util.Map;
@@ -111,9 +112,15 @@ public class SubSystem {
                 && !_linearOpMode.isStopRequested()) {
             if (drivePower != 0 && !Drive.isBusy()) Drive.stop();
 
-            if (liftPower != 0 && !LiftMotors.isBusy()) LiftMotors.stop();
+            if (liftPower != 0 && !LiftMotors.isBusy()) {
+                LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                LiftMotors.stop();
+            }
 
-            if (gnasherPower != 0 && !GnashMoter.isBusy()) GnashMoter.stop();
+            if (gnasherPower != 0 && !GnashMoter.isBusy()) {
+                GnashMoter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                GnashMoter.stop();
+            }
 
             if (canRunExtender(extPosition) && isMoving && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
             else if (extPower != 0 && !ExtMotor.isBusy()) {
@@ -186,6 +193,7 @@ public class SubSystem {
             }
 
             if (gnasherPower != 0 && !GnashMoter.isBusy()) {
+                GnashMoter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 GnashMoter.stop();
             }
 
@@ -262,9 +270,15 @@ public class SubSystem {
 
             if (drivePower != 0 && targetDegrees >= currentDegrees) Drive.stop();
 
-            if (liftPower != 0 && !LiftMotors.isBusy()) LiftMotors.stop();
+            if (liftPower != 0 && !LiftMotors.isBusy()) {
+                LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                LiftMotors.stop();
+            }
 
-            if (gnasherPower != 0 && !GnashMoter.isBusy()) GnashMoter.stop();
+            if (gnasherPower != 0 && !GnashMoter.isBusy()) {
+                GnashMoter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                GnashMoter.stop();
+            }
 
             if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
             else if (extPower != 0 && !ExtMotor.isBusy()) {
@@ -310,9 +324,15 @@ public class SubSystem {
 
             if (drivePower != 0 && targetDegrees <= currentDegrees) Drive.stop();
 
-            if (liftPower != 0 && !LiftMotors.isBusy()) LiftMotors.stop();
+            if (liftPower != 0 && !LiftMotors.isBusy()) {
+                LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                LiftMotors.stop();
+            }
 
-            if (gnasherPower != 0 && !GnashMoter.isBusy()) GnashMoter.stop();
+            if (gnasherPower != 0 && !GnashMoter.isBusy()) {
+                GnashMoter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                GnashMoter.stop();
+            }
 
             if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
             else if (extPower != 0 && !ExtMotor.isBusy())

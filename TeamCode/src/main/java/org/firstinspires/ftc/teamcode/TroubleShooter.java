@@ -92,7 +92,7 @@ public class TroubleShooter extends LinearOpMode {
             Intake.run();
             telemetry.addLine("Claw");
             telemetry.addData("pos", Intake.getPosition());
-            telemetry.addData("open or closed", Intake.getOpenOrClosed());
+//            telemetry.addData("open or closed", Intake.getOpenOrClosed());
 
             telemetry.update();
         }

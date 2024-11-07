@@ -6,9 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.core.Drive;
 import org.firstinspires.ftc.teamcode.core.player.Mecanum;
+import org.firstinspires.ftc.teamcode.intothedeep.core.ClipperThingamabobberMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
 import org.firstinspires.ftc.teamcode.intothedeep.core.GnashMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
+import org.firstinspires.ftc.teamcode.intothedeep.player.ClipperThingamabobber;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Extender;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Gnasher;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
@@ -30,6 +32,7 @@ public class Player extends LinearOpMode {
         LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Latcher.initialize(this);
         Gnasher.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ClipperThingamabobber.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Latcher.close();
         waitForStart();
 
@@ -68,6 +71,10 @@ public class Player extends LinearOpMode {
             telemetry.addLine("The Ghastly Gnasher");
 //            telemetry.addData("gov", Extender.getActiveGovenor());
             telemetry.addData("pow", GnashMoter.getPower());
+
+            ClipperThingamabobber.run();
+            telemetry.addLine("Clipper Thingamabobber");
+            telemetry.addData("pos", ClipperThingamabobberMoter.getPower());
 
             /* gamepad2.left_stick_y
              * gamepad2.left_trigger - Govenor */
