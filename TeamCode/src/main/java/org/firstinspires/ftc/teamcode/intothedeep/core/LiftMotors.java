@@ -52,18 +52,14 @@ public class LiftMotors {
         return powers;
     }
 
+    public static double getPower() { return _mLeft.getPower(); }
+
     public static void setPositionTolerance(int tolerance) {
         ((DcMotorEx) _mLeft).setTargetPositionTolerance(tolerance);
 //        ((DcMotorEx) _mRight).setTargetPositionTolerance(tolerance);
     }
 
     public static boolean isBusy() {
-//        Log.d("5960", "left;" + _mLeft.isBusy() + ", right;" + _mRight.isBusy());
-//        Log.d("5960", "left;" + _mLeft.getCurrentPosition() + ", right;" + _mRight.getCurrentPosition());
-//        return _mLeft.isBusy() && _mRight.isBusy();
-
-        Log.d("5960", "left;" + _mLeft.isBusy());
-        Log.d("5960", "left;" + _mLeft.getCurrentPosition());
         return _mLeft.isBusy();
     }
 
@@ -73,17 +69,11 @@ public class LiftMotors {
 
     public static Map<String, Integer> getCurrentPositions() {
         Hashtable<String, Integer> positions = new Hashtable<>();
-//        positions.put("right", _mRight.getCurrentPosition());
         positions.put("left", _mLeft.getCurrentPosition());
         return positions;
     }
 
-//    public static void setTargetPosition(int pos) {
-//        setTargetPosition(pos, pos);
-//    }f
-
     public static void setTargetPosition(int left) {
         _mLeft.setTargetPosition(left);
-//        _mRight.setTargetPosition(right);
     }
 }

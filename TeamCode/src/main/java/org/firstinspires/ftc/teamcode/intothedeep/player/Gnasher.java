@@ -14,6 +14,7 @@ public class Gnasher {
     static Govenor _govenor;
     static final double _max_govenor = 1;
     static final double _min_govenor = 0.6;
+    static final int _max_position = 2000;
 
     public static void initialize(LinearOpMode linearOpMode, DcMotor.RunMode runMode) {
         _linearOpMode = linearOpMode;
@@ -23,9 +24,9 @@ public class Gnasher {
 
     public static void run() {
         double _DPadPower = 0;
-        if(_govenor.setActive(_linearOpMode.gamepad2.left_trigger)){
+        if(_linearOpMode.gamepad2.left_trigger != 0 && GnashMoter.getCurrentPosition() < _max_position){
             _DPadPower = 1;
-        }else if(_govenor.setActive(_linearOpMode.gamepad2.right_trigger)){
+        }else if(_linearOpMode.gamepad2.right_trigger != 0 && GnashMoter.getCurrentPosition() > 0){
             _DPadPower = -1;
         }else{
             _DPadPower = 0;

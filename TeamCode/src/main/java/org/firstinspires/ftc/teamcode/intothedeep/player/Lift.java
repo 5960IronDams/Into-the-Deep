@@ -10,6 +10,7 @@ public class Lift {
     static LinearOpMode _linearOpMode;
 
     static final int minEncoderLimit = -3850;
+    static final int submersableBarTargetLimit = -850;
 
     static Govenor _govenor;
     static final double _max_govenor = 0.6;
@@ -22,18 +23,18 @@ public class Lift {
     }
 
     public static void run() {
-        if (_govenor.setActive(_linearOpMode.gamepad2.left_bumper? 1 : 0)) _linearOpMode.sleep(_govenor.getSleepDelay());
-        double power = _linearOpMode.gamepad2.left_stick_y * _govenor.getActive();
+//        if (_govenor.setActive(_linearOpMode.gamepad2.left_bumper ? 1 : 0)) _linearOpMode.sleep(_govenor.getSleepDelay());
 
-        if (power < 0 && LiftMotors.getCurrentPosition() <= minEncoderLimit) power = 0;
+        double power = _linearOpMode.gamepad2.left_stick_y;// * _govenor.getActive();
+        double currentPosition = LiftMotors.getCurrentPosition();
+
+        if (power < 0 && currentPosition <= minEncoderLimit) power = 0;
+        else if (Intake.isClosed() && currentPosition > submersableBarTargetLimit && _linearOpMode.gamepad1.right_stick_y > 0) power = -1;
 
         LiftMotors.setPower(power);
-        _linearOpMode.telemetry.addLine("Lift");
-        _linearOpMode.telemetry.addData("Power", power);
-        _linearOpMode.telemetry.addData("Encoder", LiftMotors.getCurrentPosition());
     }
 
-    public static String getActiveGovenor() {
-        return _govenor.toString();
-    }
+//    public static String getActiveGovenor() {
+//        return _govenor.toString();
+//    }
 }

@@ -2,15 +2,11 @@ package org.firstinspires.ftc.teamcode.intothedeep.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.Drive;
-import org.firstinspires.ftc.teamcode.core.autonomous.Gyro;
+import org.firstinspires.ftc.teamcode.core.autonomous.ExpansionHubGyro;
 import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
 import org.firstinspires.ftc.teamcode.intothedeep.core.GnashMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
-import org.firstinspires.ftc.teamcode.intothedeep.player.Gnasher;
-import org.firstinspires.ftc.teamcode.intothedeep.player.Lift;
 
 import java.util.Map;
 
@@ -37,7 +33,7 @@ public class SubSystem {
         LiftMotors.initialize(linearOpMode.hardwareMap, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ExtMotor.initialize(linearOpMode.hardwareMap, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         GnashMoter.initialize(linearOpMode.hardwareMap, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Gyro.initialization(linearOpMode.hardwareMap);
+        ExpansionHubGyro.initialization(linearOpMode.hardwareMap);
 
         Drive.setPositionTolerance(positionTolerence);
         LiftMotors.setPositionTolerance(positionTolerence);
@@ -222,14 +218,19 @@ public class SubSystem {
                                double liftPower, int liftPosition,
                                double extPower, int extPosition,
                                double gnasherPower, int gnasherPosition) {
-        double currentDegrees = Gyro.getCurrentDegrees();
 
-        if (targetDegrees < currentDegrees) {
-            TurnLeft(drivePower, targetDegrees, currentDegrees, liftPower, liftPosition, extPower, extPosition, gnasherPower, gnasherPosition);
+        ExpansionHubGyro.resetOffsetAngle();
+        double currentDegrees = ExpansionHubGyro.getCurrentDegrees();
+
+        if (targetDegrees < 0) {
+            TurnLeft(drivePower, Math.abs(targetDegrees), currentDegrees, liftPower, liftPosition, extPower, extPosition, gnasherPower, gnasherPosition);
         } else {
             TurnRight(drivePower, targetDegrees, currentDegrees, liftPower, liftPosition, extPower, extPosition, gnasherPower, gnasherPosition);
         }
 
+        _linearOpMode.telemetry.addLine("Gyro");
+        _linearOpMode.telemetry.addData("deg", currentDegrees);
+        _linearOpMode.telemetry.addData("Target", targetDegrees);
         driveTelemetry();
         liftTelemetry();
         extTelemery(extPosition);
@@ -244,7 +245,6 @@ public class SubSystem {
                          double gnasherPower, int gnasherPosition) {
 
         boolean isMoving;
-
         isMoving = true;
 
         if (drivePower != 0) {
@@ -264,11 +264,11 @@ public class SubSystem {
             GnashMoter.setPower(gnasherPower);
         }
 
-        while ((targetDegrees < currentDegrees || ExtMotor.isBusy() || LiftMotors.isBusy())
+        while ((targetDegrees > currentDegrees || ExtMotor.isBusy() || LiftMotors.isBusy())
                 && !_linearOpMode.isStopRequested()) {
-            currentDegrees = Gyro.getCurrentDegrees();
+            currentDegrees = ExpansionHubGyro.getCurrentDegrees();
 
-            if (drivePower != 0 && targetDegrees >= currentDegrees) Drive.stop();
+            if (drivePower != 0 && targetDegrees <= currentDegrees) Drive.stop();
 
             if (liftPower != 0 && !LiftMotors.isBusy()) {
                 LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -286,6 +286,9 @@ public class SubSystem {
                 isMoving = false;
             }
 
+            _linearOpMode.telemetry.addLine("Gyro");
+            _linearOpMode.telemetry.addData("deg", currentDegrees);
+            _linearOpMode.telemetry.addData("Left Target", targetDegrees);
             driveTelemetry();
             liftTelemetry();
             extTelemery(extPosition);
@@ -320,7 +323,7 @@ public class SubSystem {
 
         while ((targetDegrees > currentDegrees || ExtMotor.isBusy() || LiftMotors.isBusy())
                 && !_linearOpMode.isStopRequested()) {
-            currentDegrees = Gyro.getCurrentDegrees();
+            currentDegrees = ExpansionHubGyro.getCurrentDegrees();
 
             if (drivePower != 0 && targetDegrees <= currentDegrees) Drive.stop();
 
@@ -337,10 +340,14 @@ public class SubSystem {
             if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
             else if (extPower != 0 && !ExtMotor.isBusy())
             {
-
                 ExtMotor.stop();
                 isMoving = false;
             }
+
+
+            _linearOpMode.telemetry.addLine("Gyro");
+            _linearOpMode.telemetry.addData("deg", currentDegrees);
+            _linearOpMode.telemetry.addData("Right Target", targetDegrees);
             driveTelemetry();
             liftTelemetry();
             extTelemery(extPosition);
@@ -362,9 +369,6 @@ public class SubSystem {
         for (Map.Entry<String, Double> entry : powers.entrySet()) {
             _linearOpMode.telemetry.addData(entry.getKey(), entry.getValue());
         }
-
-        _linearOpMode.telemetry.addLine("");
-        _linearOpMode.telemetry.addData("deg", Gyro.getCurrentDegrees());
     }
 
     static void liftTelemetry() {

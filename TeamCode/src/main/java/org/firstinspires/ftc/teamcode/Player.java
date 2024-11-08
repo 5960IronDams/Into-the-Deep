@@ -43,49 +43,24 @@ public class Player extends LinearOpMode {
              * gamepad1.left_stick_x - Turn */
             Mecanum.drive();
 
-            telemetry.addLine("Drive");
-            Map<String, Double> motorPowers = Drive.getPowers();
-            telemetry.addData("gov", Mecanum.getActiveGovenor());
-            telemetry.addData("flp", motorPowers.get("flp"));
-            telemetry.addData("frp", motorPowers.get("frp"));
-            telemetry.addData("rlp", motorPowers.get("rlp"));
-            telemetry.addData("rrp", motorPowers.get("rrp"));
-
-            /* gamepad2.left_bumper - Out
-             * gamepad2.right_bumber - In */
+            /* gamepad2.left_bumper - Open
+             * gamepad2.right_bumber - Closed */
             Intake.run();
 
-            telemetry.addLine("Intake");
-            telemetry.addData("pos", Intake.getPosition());
-
             /* gamepad2.right_stick_y
-             * gamepad2.right_trigger - Governor  */
+             * gamepad2.x - Governor  */
             Extender.run();
-//HI
-            telemetry.addLine("Extender");
-            telemetry.addData("gov", Extender.getActiveGovenor());
-            telemetry.addData("pow", ExtMotor.getPower());
 
+            /* gamepad2.left_trigger Up
+             * gamepad2.right_trigger Down */
             Gnasher.run();
 
-            telemetry.addLine("The Ghastly Gnasher");
-//            telemetry.addData("gov", Extender.getActiveGovenor());
-            telemetry.addData("pow", GnashMoter.getPower());
-
+            /* gamepad2.dpadup - up to hook
+             * gamepad2.dpaddown - down to pull up */
             ClipperThingamabobber.run();
-            telemetry.addLine("Clipper Thingamabobber");
-            telemetry.addData("pos", ClipperThingamabobberMoter.getPower());
 
-            /* gamepad2.left_stick_y
-             * gamepad2.left_trigger - Govenor */
+            /* gamepad2.left_stick_y  */
             Lift.run();
-
-            telemetry.addLine("Lift");
-            telemetry.addData("gov", Lift.getActiveGovenor());
-            Map<String, Double> powers = LiftMotors.getPowers();
-//            telemetry.addData("right", powers.get("right"));
-            telemetry.addData("power", powers.get("left"));
-            telemetry.addData("pos", LiftMotors.getCurrentPosition());
 
             telemetry.update();
         }

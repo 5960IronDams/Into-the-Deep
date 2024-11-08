@@ -5,7 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.core.Drive;
-import org.firstinspires.ftc.teamcode.core.autonomous.Gyro;
+import org.firstinspires.ftc.teamcode.core.autonomous.ControlHubGyro;
+import org.firstinspires.ftc.teamcode.core.autonomous.ExpansionHubGyro;
 import org.firstinspires.ftc.teamcode.core.player.Mecanum;
 import org.firstinspires.ftc.teamcode.intothedeep.core.ClipperThingamabobberMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
@@ -44,19 +45,14 @@ public class TroubleShooter extends LinearOpMode {
 
         Intake.initialize(this);
 
-        Gyro.initialization(hardwareMap);
+        ControlHubGyro.initialization(hardwareMap);
+        ExpansionHubGyro.initialization(hardwareMap);
         Latcher.initialize(this);
 
         Latcher.close();
         waitForStart();
 
         while (opModeIsActive()) {
-
-//            Drive.setRRPower(0.2);
-//            Drive.setRLPower(0.2);
-//            Drive.setFRPower(0.2);
-//            Drive.setFLPower(0.2);
-
             Mecanum.drive();
             telemetry.addLine("Drive Encoders");
             telemetry.addData("gov", Mecanum.getActiveGovenor());
@@ -68,10 +64,7 @@ public class TroubleShooter extends LinearOpMode {
 
             Lift.run();
             telemetry.addLine("Lift Encoders");
-            telemetry.addData("gov", Lift.getActiveGovenor());
-            Map<String, Integer> liftPositions = LiftMotors.getCurrentPositions();
-//            telemetry.addData("right", liftPositions.get("right"));
-            telemetry.addData("left", liftPositions.get("left"));
+            telemetry.addData("Pos", LiftMotors.getCurrentPosition());
 
             Extender.run();
             telemetry.addLine("Extender Encoders");
@@ -86,13 +79,16 @@ public class TroubleShooter extends LinearOpMode {
             telemetry.addLine("Clipper Thingamabobber");
             telemetry.addData("pos", ClipperThingamabobberMoter.getCurrentPosition());
 
-            telemetry.addLine("Gyro Angle");
-            telemetry.addData("degree", Gyro.getCurrentDegrees());
+            telemetry.addLine("CH Gyro Angle");
+            telemetry.addData("degree", ControlHubGyro.getCurrentDegrees());
+
+            telemetry.addLine("EH Gyro Angle");
+            telemetry.addData("degree", ExpansionHubGyro.getCurrentDegrees());
 
             Intake.run();
             telemetry.addLine("Claw");
             telemetry.addData("pos", Intake.getPosition());
-//            telemetry.addData("open or closed", Intake.getOpenOrClosed());
+            telemetry.addData("closed", Intake.isClosed());
 
             telemetry.update();
         }
