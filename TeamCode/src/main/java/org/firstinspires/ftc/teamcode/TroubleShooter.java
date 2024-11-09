@@ -50,6 +50,7 @@ public class TroubleShooter extends LinearOpMode {
         Latcher.initialize(this);
 
         Latcher.close();
+        Intake.open();
         waitForStart();
 
         while (opModeIsActive()) {

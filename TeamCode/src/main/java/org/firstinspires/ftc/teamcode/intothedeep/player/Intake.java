@@ -13,7 +13,6 @@ public class Intake {
     public static void initialize(LinearOpMode linearOpMode) {
         _linearOpMode = linearOpMode;
         _mClaw = linearOpMode.hardwareMap.servo.get("claw");
-        _mClaw.close();
         _linearOpMode.telemetry.addData("ClawPosition", _mClaw.getPosition());
     }
 

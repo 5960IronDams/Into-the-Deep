@@ -34,9 +34,12 @@ public class Player extends LinearOpMode {
         Gnasher.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ClipperThingamabobber.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Latcher.close();
+        Intake.open();
         waitForStart();
 
         while (opModeIsActive()) {
+            telemetry.addData("Intake", Intake.isClosed());
+
             /* gamepad1.left_trigger - Govenor
              * gamepad1.right_stick_y,
              * gamepad1.right_stick_x,
@@ -54,6 +57,8 @@ public class Player extends LinearOpMode {
             /* gamepad2.left_trigger Up
              * gamepad2.right_trigger Down */
             Gnasher.run();
+            telemetry.addLine("Gnasher");
+            telemetry.addData("pos", GnashMoter.getCurrentPosition());
 
             /* gamepad2.dpadup - up to hook
              * gamepad2.dpaddown - down to pull up */

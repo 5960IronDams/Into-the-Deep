@@ -23,8 +23,8 @@ public class ClipperThingamabobber {
     }
 
     public static void run() {
-//        double power = _linearOpMode.gamepad2.a ? -1: _linearOpMode.gamepad2.b? 1: 0;
-        double power = _linearOpMode.gamepad2.dpad_down ? -1 : _linearOpMode.gamepad2.dpad_up ? 1 : 0;
+        double power = _linearOpMode.gamepad2.a ? -1: _linearOpMode.gamepad2.y ? 1: 0;
+//        double power = _linearOpMode.gamepad2.dpad_down ? -1 : _linearOpMode.gamepad2.dpad_up ? 1 : 0;
         ClipperThingamabobberMoter.setPower(power);
 
     }

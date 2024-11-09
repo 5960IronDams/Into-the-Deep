@@ -102,7 +102,7 @@ public class SubSystem {
         if (drivePower != 0) Drive.setPower(drivePower);
         if (extPower != 0 && canRunExtender(extPosition)) ExtMotor.setPower(extPower);
         if (liftPower != 0) LiftMotors.setPower(liftPower);
-        if (gnasherPosition != 0) GnashMoter.setPower(gnasherPower);
+        if (gnasherPower != 0) GnashMoter.setPower(gnasherPower);
 
         while ((Drive.isBusy() || ExtMotor.isBusy() || LiftMotors.isBusy() || GnashMoter.isBusy())
                 && !_linearOpMode.isStopRequested()) {
