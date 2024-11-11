@@ -55,6 +55,14 @@ public class TroubleShooter extends LinearOpMode {
 
         while (opModeIsActive()) {
             Mecanum.drive();
+//            telemetry.addLine("Drive Current");
+//            Map<String, Boolean> driveCurrents = Drive.getCurrents();
+//            telemetry.addData("flc", driveCurrents.get("flc"));
+//            telemetry.addData("frc", driveCurrents.get("flc"));
+//            telemetry.addData("rlc", driveCurrents.get("flc"));
+//            telemetry.addData("rrc", driveCurrents.get("flc"));
+
+
             telemetry.addLine("Drive Encoders");
             telemetry.addData("gov", Mecanum.getActiveGovenor());
             Map<String, Integer> drivePositions = Drive.getCurrentPositions();
@@ -64,7 +72,8 @@ public class TroubleShooter extends LinearOpMode {
             telemetry.addData("rrp", drivePositions.get("flp"));
 
             Lift.run();
-            telemetry.addLine("Lift Encoders");
+            telemetry.addLine("Lift");
+            telemetry.addData("IsTouching", LiftMotors.isTouching());
             telemetry.addData("Pos", LiftMotors.getCurrentPosition());
 
             Extender.run();

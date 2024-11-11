@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -54,6 +56,22 @@ public class Drive {
         _mRearRight.setPower(rrp);
     }
 
+    public static void setRearLeftPower(double power) {
+        _mRearLeft.setPower(power);
+    }
+
+    public static void setRearRightPower(double power) {
+        _mRearRight.setPower(power);
+    }
+
+    public static void setFrontLeftPower(double power) {
+        _mFrontLeft.setPower(power);
+    }
+
+    public static void setFrontRightPower(double power) {
+        _mFrontRight.setPower(power);
+    }
+
     public static void setRRPower(double power) {
         _mRearRight.setPower(power);
     }
@@ -79,6 +97,16 @@ public class Drive {
 
     public static boolean isBusy() {
         return _mFrontLeft.isBusy(); //|| _mFrontRight.isBusy() || _mRearLeft.isBusy() || _mRearRight.isBusy();
+    }
+
+    public static Map<String, Boolean> getCurrents() {
+        Map<String, Boolean> currents = new Hashtable<>();
+        currents.put("flc", ((DcMotorEx) _mRearLeft).isOverCurrent());
+        currents.put("frc", ((DcMotorEx) _mRearRight).isOverCurrent());
+        currents.put("rlc", ((DcMotorEx) _mFrontLeft).isOverCurrent());
+        currents.put("rrc", ((DcMotorEx) _mFrontRight).isOverCurrent());
+
+        return currents;
     }
 
     public static boolean isAtEncoder() {

@@ -39,12 +39,19 @@ public class Lift {
             power = _linearOpMode.gamepad2.left_stick_y;// * _govenor.getActive();
             double currentPosition = LiftMotors.getCurrentPosition();
 
-            if (power > 0 && currentPosition > submersableBarTargetLimit && power > _down_power)
-                power = _down_power;
-            else if (power < 0 && currentPosition <= minEncoderLimit) power = 0;
+//            if (power > 0 && currentPosition > submersableBarTargetLimit && power > _down_power)
+//                power = _down_power;
+//            else
+            if (power < 0 && currentPosition <= minEncoderLimit) power = 0;
+            else if (power > 0 && LiftMotors.isTouching()) {
+                power = 0;
+                LiftMotors.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
             else if (Intake.isClosed() && currentPosition > submersableBarTargetLimit && _linearOpMode.gamepad1.right_stick_y > 0)
                 power = -1;
         }
+
         LiftMotors.setPower(power);
     }
 

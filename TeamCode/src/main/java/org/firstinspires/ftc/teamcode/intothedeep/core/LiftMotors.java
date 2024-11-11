@@ -6,15 +6,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import java.util.Hashtable;
 import java.util.Map;
 
 public class LiftMotors {
     static DcMotor _mLeft;
+    static TouchSensor _touchy;
 //    static DcMotor _mRight;
 
     public static void initialize(HardwareMap hardwareMap, DcMotor.RunMode runMode) {
+        _touchy = hardwareMap.get(TouchSensor.class, "touchy");
         _mLeft = hardwareMap.get(DcMotor.class, "lftl");
 //        _mRight = hardwareMap.get(DcMotor.class, "lftr");
 
@@ -31,6 +34,8 @@ public class LiftMotors {
         _mLeft.setMode(mode);
 //        _mRight.setMode(mode);
     }
+
+    public static boolean isTouching() { return _touchy.isPressed(); }
 
     public static void stop() {
         setPower(0);

@@ -58,14 +58,15 @@ public class SubSystem {
         GnashMoter.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    static void DrivePosSetup(int drivePosition, int liftPosition, int extPosition, int gnasherPosition) {
-        Drive.setTargetPosition(drivePosition);
-        Drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        LiftPosSetup(liftPosition);
-        ExtPosSetup(extPosition);
-        GnasherPosSetup(gnasherPosition);
+    static void DrivePosSetup(int drivePosition, double drivePower, int liftPosition, double liftPower, int extPosition, double extPower, int gnasherPosition, double gnasherPower) {
+        if (drivePower != 0) {
+            Drive.setTargetPosition(drivePosition);
+            Drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            Drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        if (liftPower != 0) LiftPosSetup(liftPosition);
+        if (extPower != 0) ExtPosSetup(extPosition);
+        if (gnasherPower != 0) GnasherPosSetup(gnasherPosition);
     }
 
     static void DriveStrafeSetup(int targetTicks) {
@@ -98,9 +99,9 @@ public class SubSystem {
         boolean isMoving;
         isMoving = true;
 
-        DrivePosSetup(drivePosition, liftPosition, extPosition, gnasherPosition);
+        DrivePosSetup(drivePosition, drivePower, liftPosition, liftPower, extPosition, extPower, gnasherPosition, gnasherPower);
         if (drivePower != 0) Drive.setPower(drivePower);
-        if (extPower != 0 && canRunExtender(extPosition)) ExtMotor.setPower(extPower);
+        if (extPower != 0 /*&& canRunExtender(extPosition)*/) ExtMotor.setPower(extPower);
         if (liftPower != 0) LiftMotors.setPower(liftPower);
         if (gnasherPower != 0) GnashMoter.setPower(gnasherPower);
 
@@ -108,7 +109,7 @@ public class SubSystem {
                 && !_linearOpMode.isStopRequested()) {
             if (drivePower != 0 && !Drive.isBusy()) Drive.stop();
 
-            if (liftPower != 0 && !LiftMotors.isBusy()) {
+            if (liftPower != 0 && (!LiftMotors.isBusy())) {
                 LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 LiftMotors.stop();
             }
@@ -118,8 +119,10 @@ public class SubSystem {
                 GnashMoter.stop();
             }
 
-            if (canRunExtender(extPosition) && isMoving && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
-            else if (extPower != 0 && !ExtMotor.isBusy()) {
+            /*if (canRunExtender(extPosition) && isMoving && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
+            else*/
+            if (extPower != 0 && !ExtMotor.isBusy()) {
+                ExtMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 ExtMotor.stop();
                 isMoving = false;
             }
@@ -166,7 +169,8 @@ public class SubSystem {
         }
         if (extPower != 0) {
             ExtPosSetup(extPosition);
-            if (canRunExtender(extPosition)) ExtMotor.setPower(extPower);
+//            if (canRunExtender(extPosition))
+            ExtMotor.setPower(extPower);
         }
         if (liftPower != 0) {
             LiftPosSetup(liftPosition);
@@ -183,7 +187,7 @@ public class SubSystem {
 
             if ((frrlPower != 0 || flrrPower != 0) && Drive.isAtEncoder()) Drive.stop();
 
-            if (liftPower != 0 && !LiftMotors.isBusy()) {
+            if (liftPower != 0 && (!LiftMotors.isBusy())) {
                 LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 LiftMotors.stop();
             }
@@ -193,8 +197,10 @@ public class SubSystem {
                 GnashMoter.stop();
             }
 
-            if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
-            else if (extPower != 0 && !ExtMotor.isBusy()) {
+//            if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
+//            else
+            if (extPower != 0 && !ExtMotor.isBusy()) {
+                ExtMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 ExtMotor.stop();
                 isMoving = false;
             }
@@ -253,7 +259,8 @@ public class SubSystem {
         }
         if (extPower != 0) {
             ExtPosSetup(extPosition);
-            if (canRunExtender(extPosition)) ExtMotor.setPower(extPower);
+//            if (canRunExtender(extPosition))
+            ExtMotor.setPower(extPower);
         }
         if (liftPower != 0) {
             LiftPosSetup(liftPosition);
@@ -270,7 +277,7 @@ public class SubSystem {
 
             if (drivePower != 0 && targetDegrees <= currentDegrees) Drive.stop();
 
-            if (liftPower != 0 && !LiftMotors.isBusy()) {
+            if (liftPower != 0 && (!LiftMotors.isBusy())) {
                 LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 LiftMotors.stop();
             }
@@ -280,10 +287,11 @@ public class SubSystem {
                 GnashMoter.stop();
             }
 
-            if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
-            else if (extPower != 0 && !ExtMotor.isBusy()) {
+//            if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
+//            else
+            if (extPower != 0 && !ExtMotor.isBusy()) {
+                ExtMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 ExtMotor.stop();
-                isMoving = false;
             }
 
             _linearOpMode.telemetry.addLine("Gyro");
@@ -310,7 +318,8 @@ public class SubSystem {
         }
         if (extPower != 0) {
             ExtPosSetup(extPosition);
-            if (canRunExtender(extPosition)) ExtMotor.setPower(extPower);
+//            if (canRunExtender(extPosition))
+            ExtMotor.setPower(extPower);
         }
         if (liftPower != 0) {
             LiftPosSetup(liftPosition);
@@ -327,7 +336,7 @@ public class SubSystem {
 
             if (drivePower != 0 && targetDegrees <= currentDegrees) Drive.stop();
 
-            if (liftPower != 0 && !LiftMotors.isBusy()) {
+            if (liftPower != 0 && (!LiftMotors.isBusy())) {
                 LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 LiftMotors.stop();
             }
@@ -337,9 +346,11 @@ public class SubSystem {
                 GnashMoter.stop();
             }
 
-            if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
-            else if (extPower != 0 && !ExtMotor.isBusy())
+//            if (isMoving && canRunExtender(extPosition) && ExtMotor.getPower() != extPower) ExtMotor.setPower(extPower);
+//            else
+            if (extPower != 0 && !ExtMotor.isBusy())
             {
+                ExtMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 ExtMotor.stop();
                 isMoving = false;
             }
