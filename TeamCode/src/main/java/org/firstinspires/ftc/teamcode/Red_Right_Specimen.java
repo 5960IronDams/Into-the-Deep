@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import android.util.Log;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.autonomous.SubSystem;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Latcher;
 
+@Disabled
 @Autonomous(name = "RED_RIGHT_SPECIMEN")
 public class Red_Right_Specimen extends LinearOpMode {
     @Override

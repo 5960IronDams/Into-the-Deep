@@ -27,6 +27,10 @@ public class Intake {
         _mClaw.setPosition(_clawClosedPosition);
     }
 
+    public static void run(double position) {
+        _mClaw.setPosition(position);
+    }
+
     public static double getPosition() {
         return _mClaw.getPosition();
     }

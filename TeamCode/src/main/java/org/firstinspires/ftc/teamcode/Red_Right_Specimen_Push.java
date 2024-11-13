@@ -19,6 +19,7 @@ public class Red_Right_Specimen_Push extends LinearOpMode {
         Intake.open();
         Latcher.initialize(this);
         Latcher.close();
+        telemetry.addLine("READY!!");
         waitForStart();
 
         ElapsedTime runtime = new ElapsedTime();
@@ -39,13 +40,13 @@ public class Red_Right_Specimen_Push extends LinearOpMode {
         Log.i("5960", runtime.milliseconds() +  ": Move forward to get behind the elements on the floor.");
         SubSystem.DriveAll(0.6, -1650, 0, 0, 0,0 ,0,0);
 
-        SubSystem.StrafeAll(0.6, 400, 0, 0,0 ,0,1,0);
+        SubSystem.StrafeAll(0.6, 430, 0, 0,0 ,0,1,0);
 
         SubSystem.DriveAll(0.6, 2000, 0, 0, 0,0 ,0,0);
 
         SubSystem.DriveAll(0.6, -1900, 0, 0, 0,0 ,0,0);
 
-        SubSystem.StrafeAll(0.6, 425, 0, 0,0 ,0,1,0);
+        SubSystem.StrafeAll(0.6, 450, 0, 0,0 ,0,1,0);
 
         SubSystem.DriveAll(0.6, 1800, 0, 0, 0,0 ,0,0);
 

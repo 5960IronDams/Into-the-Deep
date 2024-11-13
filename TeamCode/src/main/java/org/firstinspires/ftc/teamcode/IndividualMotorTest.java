@@ -31,11 +31,15 @@ public class IndividualMotorTest extends LinearOpMode {
         Drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        Intake.initialize(this);
 
 
         waitForStart();
 
         while (opModeIsActive()) {
+
+            Intake.run(gamepad1.right_stick_y);
+            telemetry.addData("Claw Pos", Intake.getPosition());
 
             if (gamepad1.a) Drive.setRearLeftPower(1);
             else if (gamepad2.a) Drive.setRearLeftPower(-1);
