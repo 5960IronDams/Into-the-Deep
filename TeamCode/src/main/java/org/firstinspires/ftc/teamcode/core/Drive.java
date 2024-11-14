@@ -99,12 +99,12 @@ public class Drive {
         return _mFrontLeft.isBusy(); //|| _mFrontRight.isBusy() || _mRearLeft.isBusy() || _mRearRight.isBusy();
     }
 
-    public static Map<String, Boolean> getCurrents() {
-        Map<String, Boolean> currents = new Hashtable<>();
-        currents.put("flc", ((DcMotorEx) _mRearLeft).isOverCurrent());
-        currents.put("frc", ((DcMotorEx) _mRearRight).isOverCurrent());
-        currents.put("rlc", ((DcMotorEx) _mFrontLeft).isOverCurrent());
-        currents.put("rrc", ((DcMotorEx) _mFrontRight).isOverCurrent());
+    public static Map<String, Double> getCurrents() {
+        Map<String, Double> currents = new Hashtable<>();
+        currents.put("flc", ((DcMotorEx) _mRearLeft).getCurrent(CurrentUnit.MILLIAMPS));
+        currents.put("frc", ((DcMotorEx) _mRearRight).getCurrent(CurrentUnit.MILLIAMPS));
+        currents.put("rlc", ((DcMotorEx) _mFrontLeft).getCurrent(CurrentUnit.MILLIAMPS));
+        currents.put("rrc", ((DcMotorEx) _mFrontRight).getCurrent(CurrentUnit.MILLIAMPS));
 
         return currents;
     }

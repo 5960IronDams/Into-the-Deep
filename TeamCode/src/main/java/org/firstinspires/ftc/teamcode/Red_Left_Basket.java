@@ -35,17 +35,17 @@ public class Red_Left_Basket extends LinearOpMode {
         Log.i("5960", runtime.milliseconds() +  ": Strafe towards the elements on the floor.");
         SubSystem.StrafeAll(-0.4, 2525, 0, 0,0 ,0,1,0);
 
-        SubSystem.DriveAll(0.4, -340, 0, 0,0 , 0,0,0);
+        SubSystem.DriveAll(0.4, -380, 0, 0,0 , 0,0,0);
         Intake.close();
-        sleep(300);
+        sleep(500);
 
-        SubSystem.TurnAll(0.4, 145, 1, -3350, 0, 0, 0, 0);
-        SubSystem.DriveAll(0.4, -1140, 1, -3350,1 ,-850,0,0);
+        SubSystem.TurnAll(0.4, 142, 1, -3350, 0, 0, 0, 0);
+        SubSystem.DriveAll(0.4, -1000, 1, -3350,1 ,-850,0,0);
         Intake.open();
         sleep(300);
 
-        SubSystem.TurnAll(0.4, -137, 0, 0, 1, -10, 0, 0);
-        SubSystem.DriveAll(0.4, -770, 1, 0,0 ,0,0,0);
+        SubSystem.TurnAll(0.4, -141, 0, 0, 1, -10, 0, 0);
+        SubSystem.DriveAll(0.4, -775, 1, 0,0 ,0,0,0);
 
 //        SubSystem.TurnAll(0.4, -141, 0, 0, 0, 0, 0, 0);
 //        SubSystem.DriveAll(0.4, -185, 0.7, -819,0 ,0,0,0);
@@ -54,15 +54,15 @@ public class Red_Left_Basket extends LinearOpMode {
         Intake.close();
         sleep(300);
 
-        SubSystem.DriveAll(0, -0, 1, -3350,0 ,0,0,0);
-        SubSystem.TurnAll(0.4, 155, 1, -3350, 1, 0, 0, 0);
+        SubSystem.DriveAll(0, 0, 1, -3350,0 ,0,0,0);
+        SubSystem.TurnAll(0.4, 150, 1, -3350, 1, 0, 0, 0);
 //        SubSystem.DriveAll(0, 0, 0, 0,1 ,-850,0,0);
-        SubSystem.DriveAll(0.4, -1100, 0, 0,1 ,-850,0,0);
+        SubSystem.DriveAll(0.4, -800, 0, 0,1 ,-850,0,0);
         Intake.open();
         sleep(300);
 
         SubSystem.TurnAll(0.4, -165, 0, 0, 0, 0, 0, 0);
-        SubSystem.DriveAll(0.7, -2000, 1, 0,1 ,1,0,0);
+        SubSystem.DriveAll(0.6, -2000, 1, 0,1 ,1,0,0);
         SubSystem.StrafeAll(-0.7, 250, 0, 0,0 ,0,0,0);
         SubSystem.DriveAll(0.7, 2000, 0, 0,0 ,0,0,0);
         sleep(30000);

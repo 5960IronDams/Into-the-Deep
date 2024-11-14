@@ -7,8 +7,8 @@ public class Intake {
     static LinearOpMode _linearOpMode;
     static Servo _mClaw;
 //    public static boolean _openOrClosed;
-    final static double _clawOpenPosition = 0.5;
-    final static double _clawClosedPosition = 0.0;
+    final static double _clawOpenPosition = 1;
+    final static double _clawClosedPosition = 0;
 
     public static void initialize(LinearOpMode linearOpMode) {
         _linearOpMode = linearOpMode;
@@ -37,9 +37,9 @@ public class Intake {
 
     public static void run() {
         if (_linearOpMode.gamepad2.right_bumper) {
-            close();
-        } else if (_linearOpMode.gamepad2.left_bumper) {
             open();
+        } else if (_linearOpMode.gamepad2.left_bumper) {
+            close();
         }
     }
 }

@@ -55,12 +55,18 @@ public class TroubleShooter extends LinearOpMode {
 
         while (opModeIsActive()) {
             Mecanum.drive();
-//            telemetry.addLine("Drive Current");
-//            Map<String, Boolean> driveCurrents = Drive.getCurrents();
-//            telemetry.addData("flc", driveCurrents.get("flc"));
-//            telemetry.addData("frc", driveCurrents.get("flc"));
-//            telemetry.addData("rlc", driveCurrents.get("flc"));
-//            telemetry.addData("rrc", driveCurrents.get("flc"));
+            telemetry.addLine("Drive Current");
+            Map<String, Double> driveCurrents = Drive.getCurrents();
+            telemetry.addData("flc", driveCurrents.get("flc"));
+            telemetry.addData("frc", driveCurrents.get("frc"));
+            telemetry.addData("rlc", driveCurrents.get("rlc"));
+            telemetry.addData("rrc", driveCurrents.get("rrc"));
+
+            Map<String, Double> drivePowers = Drive.getPowers();
+            telemetry.addData("flp", drivePowers.get("flp"));
+            telemetry.addData("frp", drivePowers.get("frp"));
+            telemetry.addData("rlp", drivePowers.get("rlp"));
+            telemetry.addData("rrp", drivePowers.get("rrp"));
 
 
             telemetry.addLine("Drive Encoders");

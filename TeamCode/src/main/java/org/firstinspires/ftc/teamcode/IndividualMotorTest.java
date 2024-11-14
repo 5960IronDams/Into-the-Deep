@@ -52,20 +52,20 @@ public class IndividualMotorTest extends LinearOpMode {
             else Drive.stop();
 
             telemetry.addLine("Drive Current");
-            Map<String, Boolean> driveCurrents = Drive.getCurrents();
+            Map<String, Double> driveCurrents = Drive.getCurrents();
             telemetry.addData("flc", driveCurrents.get("flc"));
-            telemetry.addData("frc", driveCurrents.get("flc"));
-            telemetry.addData("rlc", driveCurrents.get("flc"));
-            telemetry.addData("rrc", driveCurrents.get("flc"));
+            telemetry.addData("frc", driveCurrents.get("frc"));
+            telemetry.addData("rlc", driveCurrents.get("rlc"));
+            telemetry.addData("rrc", driveCurrents.get("rrc"));
 
 
             telemetry.addLine("Drive Encoders");
             telemetry.addData("gov", Mecanum.getActiveGovenor());
             Map<String, Integer> drivePositions = Drive.getCurrentPositions();
             telemetry.addData("flp", drivePositions.get("flp"));
-            telemetry.addData("frp", drivePositions.get("flp"));
-            telemetry.addData("rlp", drivePositions.get("flp"));
-            telemetry.addData("rrp", drivePositions.get("flp"));
+            telemetry.addData("frp", drivePositions.get("frp"));
+            telemetry.addData("rlp", drivePositions.get("rlp"));
+            telemetry.addData("rrp", drivePositions.get("rrp"));
 
             telemetry.update();
         }
