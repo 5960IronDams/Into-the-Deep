@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
 public class Lift {
     static LinearOpMode _linearOpMode;
 
-    static final int minEncoderLimit = -3950;
+    static final int minEncoderLimit = -5300;
     static final int submersableBarTargetLimit = -850;
 
 //    static Govenor _govenor;
@@ -26,16 +26,19 @@ public class Lift {
 //        if (_govenor.setActive(_linearOpMode.gamepad2.left_bumper ? 1 : 0)) _linearOpMode.sleep(_govenor.getSleepDelay());
         double power = 0;
 
-        if (_linearOpMode.gamepad2.dpad_up) {
-            if (LiftMotors.getCurrentPosition() > -3180) power = -0.5;
-            else if (LiftMotors.getCurrentPosition() < -3225) power = 0.5;
-        } else if (_linearOpMode.gamepad2.dpad_down) {
-            if (LiftMotors.getCurrentPosition() > -350) power = -0.5;
-            else if (LiftMotors.getCurrentPosition() < -400) power = 0.5;
-        } else if (_linearOpMode.gamepad2.dpad_left || _linearOpMode.gamepad2.dpad_right) {
-            if (LiftMotors.getCurrentPosition() > -700) power = -0.5;
-            else if (LiftMotors.getCurrentPosition() < -730) power = 0.5;
-        } else {
+//        if (_linearOpMode.gamepad2.dpad_up) {
+//            // moving up
+//            if (LiftMotors.getCurrentPosition() > -3180) power = -0.5;
+//            else if (LiftMotors.getCurrentPosition() < -3225) power = 0.5;
+//        } else if (_linearOpMode.gamepad2.dpad_down) {
+//            // moving up
+//            if (LiftMotors.getCurrentPosition() > -680) power = -0.5;
+//            // moving down
+//            else if (LiftMotors.getCurrentPosition() < -730) power = 0.5;
+//        } else if (_linearOpMode.gamepad2.dpad_left || _linearOpMode.gamepad2.dpad_right) {
+//            if (LiftMotors.getCurrentPosition() > -700) power = -0.5;
+//            else if (LiftMotors.getCurrentPosition() < -730) power = 0.5;
+//        } else {
             power = _linearOpMode.gamepad2.left_stick_y;// * _govenor.getActive();
             double currentPosition = LiftMotors.getCurrentPosition();
 
@@ -50,7 +53,7 @@ public class Lift {
             }
             else if (Intake.isClosed() && currentPosition > submersableBarTargetLimit && _linearOpMode.gamepad1.right_stick_y > 0)
                 power = -1;
-        }
+//        }
 
         LiftMotors.setPower(power);
     }

@@ -26,17 +26,19 @@ public class Extender {
         if (_govenor.setActive(_linearOpMode.gamepad2.x ? 1 : 0)) _linearOpMode.sleep(_govenor.getSleepDelay());
 
         double power = 0;
-        if (_linearOpMode.gamepad2.dpad_up && LiftMotors.getCurrentPosition() < -2000) {
-            if (ExtMotor.getCurrentPosition() > minEncoderLimit) power = -0.5;
-        } else if (_linearOpMode.gamepad2.dpad_down && LiftMotors.getCurrentPosition() < -350) {
-            if (ExtMotor.getCurrentPosition() > -410) power = -0.5;
-            else if (ExtMotor.getCurrentPosition() < -430) power = 0.5;
-        } else if ((_linearOpMode.gamepad2.dpad_left || _linearOpMode.gamepad2.dpad_right) && LiftMotors.getCurrentPosition() < -680) {
-            if (ExtMotor.getCurrentPosition() > -820) power = -0.5;
-            else if (ExtMotor.getCurrentPosition() < -860) power = 0.5;
-        } else {
+//        if (_linearOpMode.gamepad2.dpad_up && LiftMotors.getCurrentPosition() < -2000) {
+//            if (ExtMotor.getCurrentPosition() > minEncoderLimit) power = -0.5;
+//        } else if (_linearOpMode.gamepad2.dpad_down && LiftMotors.getCurrentPosition() < -390) {
+//            // moving out
+//            if (ExtMotor.getCurrentPosition() > -535) power = -0.4;
+//            // moving in
+//            else if (ExtMotor.getCurrentPosition() < -545) power = 0.4;
+//        } else if ((_linearOpMode.gamepad2.dpad_left || _linearOpMode.gamepad2.dpad_right) && LiftMotors.getCurrentPosition() < -680) {
+//            if (ExtMotor.getCurrentPosition() > -820) power = -0.5;
+//            else if (ExtMotor.getCurrentPosition() < -860) power = 0.5;
+//        } else {
             power = _linearOpMode.gamepad2.right_stick_y;
-        }
+//        }
 
         if (power < 0 && ExtMotor.getCurrentPosition() <= minEncoderLimit) power = 0;
 

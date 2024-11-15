@@ -42,7 +42,7 @@ public class RED_left_basket extends LinearOpMode {
 //        thirdSampleToNetZone();
 
         /* ==== PARK IN THE ASCENT ZONE ==== */
-        parkInAcentZone();
+        parkInAscentZone();
     }
 
     void specimenToHighChamber() {
@@ -54,11 +54,11 @@ public class RED_left_basket extends LinearOpMode {
 
     void pickupFirstSample() {
         // Back away from the submersible
-        SubSystem.DriveAll(Utilitiy.MIN_MOTOR_POW, 400, 0, 0,0 ,0,1,1000);
+        SubSystem.DriveAll(Utilitiy.MIN_MOTOR_POW, 400, 0, 0,0 ,0,0,0);
         // Strafe towards the net zone, baskets
-        SubSystem.StrafeAll(-Utilitiy.MIN_MOTOR_POW, 2525, 0, 0,0 ,0,1,0);
+        SubSystem.StrafeAll(-Utilitiy.MIN_MOTOR_POW, 2555, 0, 0,0 ,0,1,270);
         // Move forward to align the claw with the first sample
-        SubSystem.DriveAll(Utilitiy.MIN_MOTOR_POW, -275, 0, 0,0 , 0,0,0);
+        SubSystem.DriveAll(Utilitiy.MIN_MOTOR_POW, -263, 0, 0,0 , 0,0,0);
         // Close the claw to grab the first floor sample
         Intake.close();
         sleep(Utilitiy.CLOSE_CLAW_DELAY);
@@ -68,9 +68,9 @@ public class RED_left_basket extends LinearOpMode {
 
     void firstSampleToHighBasket() {
         // Turn to face the net zone and lift the first sample into position
-        SubSystem.TurnAll(Utilitiy.MIN_MOTOR_POW, 145, 1, -3350, 0, 0, 0, 0);
+        SubSystem.TurnAll(Utilitiy.MIN_MOTOR_POW, 146, 1, Utilitiy.HIGH_BASKET_HEIGHT, 0, 0, 0, 0);
         // Move forward into the net zone and extend the first sample above the high basket
-        SubSystem.DriveAll(Utilitiy.MIN_MOTOR_POW, -960, 1, -3350,1 ,-850,0,0);
+        SubSystem.DriveAll(Utilitiy.MIN_MOTOR_POW, -1290, 1, Utilitiy.HIGH_BASKET_HEIGHT,1, Utilitiy.EXTENDER_REACH,0,0);
         // Open the claw dropping the first sample into the high basket
         Intake.open();
         sleep(Utilitiy.OPEN_CLAW_DELAY);
@@ -78,9 +78,9 @@ public class RED_left_basket extends LinearOpMode {
 
     void pickupSecondSample() {
         // Turn to face the second second floor sample
-        SubSystem.TurnAll(Utilitiy.MIN_MOTOR_POW, -139, 0, 0, 1, -10, 0, 0);
+        SubSystem.TurnAll(Utilitiy.MIN_MOTOR_POW, -142, 0, 0, 1, -10, 0, 0);
         // Move forward to align the claw with the second sample
-        SubSystem.DriveAll(Utilitiy.MIN_MOTOR_POW, -720, 1, 0,0 ,0,0,0);
+        SubSystem.DriveAll(Utilitiy.MIN_MOTOR_POW, -925, 1, 0,0 ,0,0,0);
         // Close the claw to grab the second floor sample
         Intake.close();
         sleep(Utilitiy.CLOSE_CLAW_DELAY);
@@ -90,23 +90,27 @@ public class RED_left_basket extends LinearOpMode {
 
     void secondSampleToHighBasket() {
         // lift the second sample into position
-        SubSystem.DriveAll(0, 0, 1, -3350,0 ,0,0,0);
+        SubSystem.DriveAll(0, 0, 1, Utilitiy.HIGH_BASKET_HEIGHT,0 ,0,0,0);
         // Turn to face the net zone
-        SubSystem.TurnAll(Utilitiy.MIN_MOTOR_POW, 159, 1, -3350, 1, 0, 0, 0);
+        SubSystem.TurnAll(Utilitiy.MIN_MOTOR_POW, 155, 1, Utilitiy.HIGH_BASKET_HEIGHT, 1, 0, 0, 0);
         // Move forward into the net zone and extend the second  sample above the high basket
-        SubSystem.DriveAll(Utilitiy.MIN_MOTOR_POW, -750, 0, 0,1 ,-850,0,0);
+        SubSystem.DriveAll(Utilitiy.MIN_MOTOR_POW, -900, 0, 0,1 ,Utilitiy.EXTENDER_REACH,0,0);
         // Open the claw dropping the first sample into the high basket
         Intake.open();
         sleep(Utilitiy.OPEN_CLAW_DELAY);
     }
 
-    void parkInAcentZone() {
+    void parkInAscentZone() {
         // Turn to face the third sample
-        SubSystem.TurnAll(Utilitiy.MIN_MOTOR_POW, -210, 0, 0, 0, 0, 0, 0);
+        SubSystem.TurnAll(Utilitiy.MIN_MOTOR_POW, -190, 0, 0, 1, 1, 0, 0);
         // Move forward past the third sample
-        SubSystem.DriveAll(0.5, -2000, 1, 0,1 ,1,0,0);
+        SubSystem.DriveAll(0.7, -2200, 1, -2035,0 ,0,1,0);
         // Strafe into ascent zone
-//        SubSystem.StrafeAll(-0.7, -2000, 0, 0,0 ,0,0,0);
+//        SubSystem.StrafeAll(-0.5, -400, 0, 0,0 ,0,0,0);
+        // Turn to touch the middle bar on the submersible
+        SubSystem.TurnAll(0.7, -45, 0, 0, 1, 1, 0, 0);
+        // Drive forward into submersible
+        SubSystem.DriveAll(0.5, -225, 0, 0,0 ,0,0,0);
     }
 
 //    void thirdSampleToNetZone() {
