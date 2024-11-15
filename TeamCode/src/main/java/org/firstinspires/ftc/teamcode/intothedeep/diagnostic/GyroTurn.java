@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.intothedeep.diagnostic;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -7,6 +8,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.autonomous.SubSystem;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Latcher;
 
+@Disabled
 @TeleOp(name="GyroTurn")
 public class GyroTurn extends LinearOpMode {
 

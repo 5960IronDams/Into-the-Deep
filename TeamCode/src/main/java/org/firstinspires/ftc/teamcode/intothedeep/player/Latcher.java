@@ -13,23 +13,22 @@ public class Latcher {
     public static void initialize(LinearOpMode linearOpMode) {
         _linearOpMode = linearOpMode;
         _mLatcher = linearOpMode.hardwareMap.servo.get("Latcher");
-        _mLatcher.setPosition(_clawMinimumRange);
-        _linearOpMode.telemetry.addData("ClawPosition", _mLatcher.getPosition());
     }
 
-    public static void open (){
-        _mLatcher.setPosition(_clawMaxRange);
-    }
+//    public static void open (){
+//        _mLatcher.setPosition(_clawMaxRange);
+//    }
 
     public static void close (){
         _mLatcher.setPosition(_clawMinimumRange);
     }
-    public static boolean getOpenOrClosed() {
-        return _openOrClosed;
-    }
-    public static double getPosition() {
-        return _mLatcher.getPosition();
-    }
+
+//    public static boolean getOpenOrClosed() {
+//        return _openOrClosed;
+//    }
+//    public static double getPosition() {
+//        return _mLatcher.getPosition();
+//    }
 
     public static void run() {
 

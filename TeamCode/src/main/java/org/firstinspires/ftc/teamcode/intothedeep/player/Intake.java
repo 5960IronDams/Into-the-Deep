@@ -13,11 +13,10 @@ public class Intake {
     public static void initialize(LinearOpMode linearOpMode) {
         _linearOpMode = linearOpMode;
         _mClaw = linearOpMode.hardwareMap.servo.get("claw");
-        _linearOpMode.telemetry.addData("ClawPosition", _mClaw.getPosition());
     }
 
     public static boolean isClosed() { return _mClaw.getPosition() == _clawClosedPosition; }
-    public static boolean isOpen() { return _mClaw.getPosition() == _clawOpenPosition; }
+//    public static boolean isOpen() { return _mClaw.getPosition() == _clawOpenPosition; }
 
     public static void open() {
         _mClaw.setPosition(_clawOpenPosition);

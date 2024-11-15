@@ -1,13 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.intothedeep;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.core.Drive;
 import org.firstinspires.ftc.teamcode.core.player.Mecanum;
-import org.firstinspires.ftc.teamcode.intothedeep.core.ClipperThingamabobberMoter;
-import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
 import org.firstinspires.ftc.teamcode.intothedeep.core.GnashMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
 import org.firstinspires.ftc.teamcode.intothedeep.player.ClipperThingamabobber;
@@ -16,8 +13,6 @@ import org.firstinspires.ftc.teamcode.intothedeep.player.Gnasher;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Latcher;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Lift;
-
-import java.util.Map;
 
 @TeleOp(name="Driver OP")
 public class Player extends LinearOpMode {
