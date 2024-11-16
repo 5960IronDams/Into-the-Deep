@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.intothedeep.player;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.intothedeep.autonomous.Utility;
 import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
 import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
 
@@ -11,36 +10,51 @@ import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
 public class Lift {
     static LinearOpMode _linearOpMode;
 
-    static final int minEncoderLimit = -5300;
-    static final int submersibleBarTargetLimit = -850;
+    static final int minEncoderLimit = -5250;
+    static final int submersableBarTargetLimit = -850;
+
+//    static Govenor _govenor;
+    static final double _down_power = 0.20;
+//    static final double _min_govenor = 0.35;
 
     public static void initialize(LinearOpMode linearOpMode, DcMotor.RunMode runMode) {
         _linearOpMode = linearOpMode;
+//        _govenor = new Govenor(_down_power, _min_govenor, true);
         LiftMotors.initialize(linearOpMode.hardwareMap, runMode);
     }
 
     public static void run() {
+//        if (_govenor.setActive(_linearOpMode.gamepad2.left_bumper ? 1 : 0)) _linearOpMode.sleep(_govenor.getSleepDelay());
         double power = 0;
-        double currentPosition = LiftMotors.getCurrentPosition();
 
-        if (ExtMotor.getCurrentPosition() < Utility.EXTENDER_REACH) {
-        // The claw is fully extended so we can't move the lift until if comes in
-            power = 0;
-        } else if (power < 0 && currentPosition <= minEncoderLimit) {
-        // The lift is all the way up, typically when we climb
-            power = 0;
-        } else if (power > 0 && LiftMotors.isTouching()) {
-        // The lift is all the way down
-            power = 0;
-            LiftMotors.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        } else if (Intake.isClosed() && currentPosition > submersibleBarTargetLimit && _linearOpMode.gamepad1.right_stick_y > 0) {
-        // The claw is closed and the lift has it below the submersible so we want to lift it up a bit
-            power = -1;
-        } else {
-        // Player power
-            power = _linearOpMode.gamepad2.left_stick_y;
-        }
+//        if (_linearOpMode.gamepad2.dpad_up) {
+//            // moving up
+//            if (LiftMotors.getCurrentPosition() > -3180) power = -0.5;
+//            else if (LiftMotors.getCurrentPosition() < -3225) power = 0.5;
+//        } else if (_linearOpMode.gamepad2.dpad_down) {
+//            // moving up
+//            if (LiftMotors.getCurrentPosition() > -680) power = -0.5;
+//            // moving down
+//            else if (LiftMotors.getCurrentPosition() < -730) power = 0.5;
+//        } else if (_linearOpMode.gamepad2.dpad_left || _linearOpMode.gamepad2.dpad_right) {
+//            if (LiftMotors.getCurrentPosition() > -700) power = -0.5;
+//            else if (LiftMotors.getCurrentPosition() < -730) power = 0.5;
+//        } else {
+            power = _linearOpMode.gamepad2.left_stick_y;// * _govenor.getActive();
+            double currentPosition = LiftMotors.getCurrentPosition();
+
+            if (currentPosition <= -3500 && ExtMotor.getCurrentPosition()<= -670)
+                power = 0;
+           else
+            if (power < 0 && currentPosition <= minEncoderLimit) power = 0;
+            else if (power > 0 && LiftMotors.isTouching()) {
+                power = 0;
+                LiftMotors.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
+            else if (Intake.isClosed() && currentPosition > submersableBarTargetLimit && _linearOpMode.gamepad1.right_stick_y > 0)
+                power = -1;
+//        }
 
         LiftMotors.setPower(power);
     }
