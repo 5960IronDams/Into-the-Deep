@@ -30,7 +30,7 @@ public class Lift {
         // The lift is all the way up, typically when we climb
             power = 0;
         } else if (power > 0 && LiftMotors.isTouching()) {
-        // The list is all the way down
+        // The lift is all the way down
             power = 0;
             LiftMotors.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
