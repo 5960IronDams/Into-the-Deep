@@ -14,7 +14,7 @@ public class Extender {
     static final double _max_govenor = 1;
     static final double _min_govenor = 0.6;
 
-    static final int minEncoderLimit = -770;
+    static final int minEncoderLimit = -670;
 
     public static void initialize(LinearOpMode linearOpMode, DcMotor.RunMode runMode) {
         _linearOpMode = linearOpMode;
@@ -24,6 +24,7 @@ public class Extender {
 
     public static void run() {
         if (_govenor.setActive(_linearOpMode.gamepad2.x ? 1 : 0)) _linearOpMode.sleep(_govenor.getSleepDelay());
+
 
         double power = 0;
 //        if (_linearOpMode.gamepad2.dpad_up && LiftMotors.getCurrentPosition() < -2000) {
@@ -38,9 +39,12 @@ public class Extender {
 //            else if (ExtMotor.getCurrentPosition() < -860) power = 0.5;
 //        } else {
             power = _linearOpMode.gamepad2.right_stick_y;
+            if (LiftMotors.getCurrentPosition()< -4400 && ExtMotor.getCurrentPosition()< -100) power = 1;
+//        else if (LiftMotors.getCurrentPosition()> -4100 && ExtMotor.getCurrentPosition()< minEncoderLimit) power = 1;
 //        }
 
-        if (power < 0 && ExtMotor.getCurrentPosition() <= minEncoderLimit) power = 0;
+        int encoderLimit = (LiftMotors.getCurrentPosition()<= -4100 && LiftMotors.getCurrentPosition()> -4400)? -900: minEncoderLimit;
+        if (power < 0 && ExtMotor.getCurrentPosition() <= encoderLimit) power = 0;
 
         ExtMotor.setPower(power * _govenor.getActive());
     }

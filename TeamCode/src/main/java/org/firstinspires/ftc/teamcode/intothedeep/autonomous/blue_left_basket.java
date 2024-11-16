@@ -1,3 +1,5 @@
+
+
 package org.firstinspires.ftc.teamcode.intothedeep.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -175,8 +177,9 @@ public class blue_left_basket extends LinearOpMode {
         // Move forward past the third sample
         SubSystem.DriveAll(0.5, 500, 1, 0,1 ,1,0,0);
         // Strafe towards the wall to get behind third sample
-        SubSystem.StrafeAll(-0.7, -250, 0, 0,0 ,0,0,0);
+        SubSystem.StrafeAll(0.7, 250, 0, 0,0 ,0,0,0);
+        SubSystem.StrafeAll(-0.7, -350, 0, 0,0 ,0,0,0);
         // Move backwards to push the third sample into the net zone.
-        SubSystem.DriveAll(0.7, -2000, 0, 0,0 ,0,0,0);
+        SubSystem.DriveAll(0.7, -1000, 0, 0,0 ,0,0,0);
     }
 }
