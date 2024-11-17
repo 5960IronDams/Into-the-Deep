@@ -52,29 +52,29 @@ public class blue_RIGHT_SPECIMEN_PUSH extends LinearOpMode {
         // Move forward to get behind the first sample on floor
         SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -1650, 0, 0, 0,0 ,0,0);
         // Strafe towards the wall to get behind first sample on the floor
-        SubSystem.StrafeAll(Utility.MIN_MOTOR_POW, 600, 0, 0,0 ,0,1,0);
+        SubSystem.StrafeAll(Utility.MIN_MOTOR_POW, 500, 0, 0,0 ,0,1,0);
         // Drive backwards to push first sample to observation zone
-        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, 2000, 0, 0, 0,0 ,0,0);
+        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, 2150, 0, 0, 0,0 ,0,0);
     }
 
     void secondSampleToObservationZone() {
         // Move forward to get behind the second sample on floor
-        SubSystem.DriveAll(0.5, -1900, 0, 0, 0,0 ,0,0);
+        SubSystem.DriveAll(0.5, -2100, 0, 0, 0,0 ,0,0);
         // Strafe towards the wall to get behind second sample on the floor
         SubSystem.StrafeAll(0.5, 450, 0, 0,0 ,0,1,0);
         // Drive backwards to push first sample to observation zone
-        SubSystem.DriveAll(0.5, 1800, 0, 0, 0,0 ,0,0);
+        SubSystem.DriveAll(0.5, 2100, 0, 0, 0,0 ,0,0);
     }
 
     void secondSpecimentToHighChamber() {
         // Move forward out of the observation zone
-        SubSystem.DriveAll(0.6, -350, 0, 0, 0,0 ,0,0);
+        SubSystem.DriveAll(0.6, -450, 0, 0, 0,0 ,0,0);
         // Turn to face the observation zone
         SubSystem.TurnAll(Utility.MIN_MOTOR_POW, -172, 0, 0, 0, 0, 0, 0);
         // Strafe into the wall to align with the specimen
         SubSystem.StrafeAll(0.7, -775, 0, 0,0 ,0,0,0);
         // Move forward into the observation zone and clip onto the specimen
-        SubSystem.DriveAll(0.5, -970, 0, 0, 0,0 ,0,0);
+        SubSystem.DriveAll(0.5, -1070, 0, 0, 0,0 ,0,0);
         // Pick up the specimen hanging on the wall
         SubSystem.DriveAll(0, 0, 0, 0,0 ,0,0.4,400);
         // Strafe diagonal towards the submersible
@@ -84,7 +84,7 @@ public class blue_RIGHT_SPECIMEN_PUSH extends LinearOpMode {
         // Strafe towards the submersible to align the specimen with the high chamber
         SubSystem.StrafeAll(Utility.MIN_MOTOR_POW, -880, 0, 0,0 ,0,0.8,2000);
         // Drive forward towards the submersible to place the specimen above the high chamber
-        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -550, 0, 0, 0,0 ,0.8,2000);
+        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -800, 0, 0, 0,0 ,0.8,2000);
         // Lower the speciment onto the high chamber
         SubSystem.DriveAll(0, 0, 0, 0,0 ,0,1,1000);
     }

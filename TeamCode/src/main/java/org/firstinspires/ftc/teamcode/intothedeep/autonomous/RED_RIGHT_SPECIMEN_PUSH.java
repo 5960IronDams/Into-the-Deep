@@ -74,7 +74,7 @@ public class RED_RIGHT_SPECIMEN_PUSH extends LinearOpMode {
         // Strafe into the wall to align with the specimen
         SubSystem.StrafeAll(0.7, -775, 0, 0,0 ,0,0,0);
         // Move forward into the observation zone and clip onto the specimen
-        SubSystem.DriveAll(0.5, -970, 0, 0, 0,0 ,0,0);
+        SubSystem.DriveAll(0.5, -1020, 0, 0, 0,0 ,0,0);
         // Pick up the specimen hanging on the wall
         SubSystem.DriveAll(0, 0, 0, 0,0 ,0,0.4,400);
         // Strafe diagonal towards the submersible
@@ -84,7 +84,7 @@ public class RED_RIGHT_SPECIMEN_PUSH extends LinearOpMode {
         // Strafe towards the submersible to align the specimen with the high chamber
         SubSystem.StrafeAll(Utility.MIN_MOTOR_POW, -880, 0, 0,0 ,0,0.8,2000);
         // Drive forward towards the submersible to place the specimen above the high chamber
-        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -550, 0, 0, 0,0 ,0.8,2000);
+        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -600, 0, 0, 0,0 ,0.8,2000);
         // Lower the speciment onto the high chamber
         SubSystem.DriveAll(0, 0, 0, 0,0 ,0,1,1000);
     }
