@@ -65,10 +65,10 @@ public class blue_left_basket extends LinearOpMode {
         pickupSecondSample();
 //
 //        /* ==== PLACE THE SECOND SAMPLE IN THE HIGH BASKET ==== */
-//        secondSampleToHighBasket();
+        secondSampleToHighBasket();
 //
 //        /* ==== PUSH THE THIRD SAMPLE INTO THE NET ZONE ==== */
-//        thirdSampleToNetZone();
+        thirdSampleToNetZone();
 
         sleep(30000);
     }
@@ -133,7 +133,7 @@ public class blue_left_basket extends LinearOpMode {
 
     void pickupSecondSample() {
         // Turn to face the second second floor sample
-        SubSystem.TurnAll(Utility.MIN_MOTOR_POW, -135, 0, 0, 1, -10, 0, 0);
+        SubSystem.TurnAll(Utility.MIN_MOTOR_POW, -131, 0, 0, 1, -10, 0, 0);
         // Move forward to align the claw with the second sample
         // Strafe towards the net zone, baskets
         //SubSystem.StrafeAll(Utility.MIN_MOTOR_POW, -300, 1, 0,1 ,-10,1,270);
@@ -142,19 +142,19 @@ public class blue_left_basket extends LinearOpMode {
        Intake.close();
         sleep(Utility.CLOSE_CLAW_DELAY);
         // Slowly list to close onto the first sample
-        //SubSystem.DriveAll(0, 0, 0.3, 200,0, 0,0,0);
+        SubSystem.DriveAll(0, 0, 0.3, 200,0, 0,0,0);
     }
 
     void secondSampleToHighBasket() {
         // lift the second sample into position
-        SubSystem.DriveAll(0, 0, 1, Utility.HIGH_BASKET_HEIGHT,0 ,0,0,0);
+        SubSystem.DriveAll(0, 0, 1, -4400,0 ,0,0,0);
         // Turn to face the net zone
-        SubSystem.TurnAll(Utility.MIN_MOTOR_POW, 157, 0, 0, 1, 0, 0, 0);
+        SubSystem.TurnAll(Utility.MIN_MOTOR_POW, 143, 0, 0, 1, 0, 0, 0);
         // Move forward into the net zone and extend the second  sample above the high basket
-        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -210, 1, Utility.MID_BASKET_HEIGHT,0.7 ,-700,0,0);
+        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -610, 1, -4400,0.7 ,-970,0,0);
         // Open the claw dropping the first sample into the high basket
         Intake.open();
-        sleep(Utility.OPEN_CLAW_DELAY);
+       sleep(Utility.OPEN_CLAW_DELAY);
     }
 
 //    void parkInAscentZone() {
@@ -171,15 +171,16 @@ public class blue_left_basket extends LinearOpMode {
 //    }
 
     void thirdSampleToNetZone() {
+        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, 710, 0, 0,1 ,0,0,0);
         // Turn to face the third sample
-        SubSystem.TurnAll(Utility.MIN_MOTOR_POW, 10, 0, 0, 1, 0, 0, 0);
+        //SubSystem.TurnAll(Utility.MIN_MOTOR_POW, 10, 0, 0, 1, 0, 0, 0);
         // Move forward past the third sample
 //        SubSystem.DriveAll(0.5, 500, 1, 0,1 ,1,0,0);
         // Strafe towards the wall to get behind third sample
-        SubSystem.StrafeAll(-0.7, 400, 0, 0,0 ,0,0,0);
-        SubSystem.DriveAll(0.7, 1300, 0, 0,0 ,0,0,0);
-        SubSystem.StrafeAll(-0.7, -700, 0, 0,0 ,0,0,0);
+        //SubSystem.StrafeAll(-0.7, 400, 0, 0,0 ,0,0,0);
+        //SubSystem.DriveAll(0.7, 1300, 0, 0,0 ,0,0,0);
+        //SubSystem.StrafeAll(-0.7, -700, 0, 0,0 ,0,0,0);
         // Move backwards to push the third sample into the net zone.
-        SubSystem.DriveAll(0.7, -1500, 1, 0,0 ,0,0,0);
+        //SubSystem.DriveAll(0.7, -1500, 1, 0,0 ,0,0,0);
     }
 }
