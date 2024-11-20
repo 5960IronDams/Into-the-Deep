@@ -10,4 +10,5 @@ public class Utility {
     public static final int MID_BASKET_HEIGHT = -3000;
 
     public static final int EXTENDER_REACH = -670;
+    public static final int AUTO_LIFT_HIGHBASKET = -4500;
 }

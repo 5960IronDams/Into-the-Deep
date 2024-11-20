@@ -70,7 +70,7 @@ public class blue_left_basket extends LinearOpMode {
 //        /* ==== PUSH THE THIRD SAMPLE INTO THE NET ZONE ==== */
         thirdSampleToNetZone();
 
-        sleep(30000);
+        //sleep(30000);
     }
 
     void specimenToHighChamber() {
@@ -97,7 +97,7 @@ public class blue_left_basket extends LinearOpMode {
 
     void pickupFirstSample2() {
         // Turn to face the second second floor sample
-        SubSystem.TurnAll(Utility.MIN_MOTOR_POW,-93.95, 0, 0, 1, -10, 0, 0);
+        SubSystem.TurnAll(Utility.MIN_MOTOR_POW,-96, 0, 0, 1, -10, 0, 0);
 //        // Strafe towards the net zone, baskets
 //        SubSystem.StrafeAll(Utility.MIN_MOTOR_POW, -270, 1, 0,1 ,-100,1,270);
 //        // Move forward to align the claw with the second sample
@@ -111,9 +111,9 @@ public class blue_left_basket extends LinearOpMode {
 
 
     void sampleToHighBasket() {
-        SubSystem.DriveAll(0, 0, 1, -4300,0, 0,1,500);
+        SubSystem.DriveAll(0, 0, 1, Utility.AUTO_LIFT_HIGHBASKET,0, 0,1,500);
         // move over to net zone and lift sample up to high basket
-        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -640, 1, -4400,1, -970,0,0);
+        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -715, 1, Utility.AUTO_LIFT_HIGHBASKET,1, -970,0,0);
         SubSystem.TurnAll(Utility.MIN_MOTOR_POW, 12, 0, 0, 0, 0, 0, 0);
         sleep(300);
         Intake.open();
@@ -123,9 +123,9 @@ public class blue_left_basket extends LinearOpMode {
 
     void firstSampleToHighBasket() {
         // Turn to face the net zone and lift the first sample into position
-        SubSystem.TurnAll(Utility.MIN_MOTOR_POW, 140, 1, -4400, 0, 0, 0, 0);
+        SubSystem.TurnAll(Utility.MIN_MOTOR_POW, 140, 1, Utility.AUTO_LIFT_HIGHBASKET, 0, 0, 0, 0);
         // Move forward into the net zone and extend the first sample above the high basket
-        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -700, 1, -4400,1, -970,0,0);
+        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -700, 1, Utility.AUTO_LIFT_HIGHBASKET,1, -970,0,0);
         // Open the claw dropping the first sample into the high basket
         Intake.open();
         sleep(Utility.OPEN_CLAW_DELAY);
@@ -147,11 +147,11 @@ public class blue_left_basket extends LinearOpMode {
 
     void secondSampleToHighBasket() {
         // lift the second sample into position
-        SubSystem.DriveAll(0, 0, 1, -4400,0 ,0,0,0);
+        SubSystem.DriveAll(0, 0, 1, Utility.AUTO_LIFT_HIGHBASKET,0 ,0,0,0);
         // Turn to face the net zone
         SubSystem.TurnAll(Utility.MIN_MOTOR_POW, 143, 0, 0, 1, 0, 0, 0);
         // Move forward into the net zone and extend the second  sample above the high basket
-        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -610, 1, -4400,0.7 ,-970,0,0);
+        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, -610, 1, Utility.AUTO_LIFT_HIGHBASKET,0.7 ,-970,0,0);
         // Open the claw dropping the first sample into the high basket
         Intake.open();
        sleep(Utility.OPEN_CLAW_DELAY);
@@ -171,14 +171,17 @@ public class blue_left_basket extends LinearOpMode {
 //    }
 
     void thirdSampleToNetZone() {
-        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, 710, 0, 0,1 ,0,0,0);
+        SubSystem.DriveAll(Utility.MIN_MOTOR_POW, 1900, 0, 0,1 ,0,0,0);
         // Turn to face the third sample
-        //SubSystem.TurnAll(Utility.MIN_MOTOR_POW, 10, 0, 0, 1, 0, 0, 0);
+        SubSystem.StrafeAll(0.5, 900, 0, 0,0 ,0,0,0);
+       // SubSystem.TurnAll(Utility.MIN_MOTOR_POW, -75, 1, 0, 1, 0, 0, 0);
         // Move forward past the third sample
-//        SubSystem.DriveAll(0.5, 500, 1, 0,1 ,1,0,0);
+        SubSystem.DriveAll(0.5, -1900, 1, 0,1 ,1,0,0);
+       // Intake.close();
+        //sleep(Utility.CLOSE_CLAW_DELAY);
         // Strafe towards the wall to get behind third sample
         //SubSystem.StrafeAll(-0.7, 400, 0, 0,0 ,0,0,0);
-        //SubSystem.DriveAll(0.7, 1300, 0, 0,0 ,0,0,0);
+        //SubSystem.DriveAll(0.2, 250, 0, 0,0 ,0,0,0);
         //SubSystem.StrafeAll(-0.7, -700, 0, 0,0 ,0,0,0);
         // Move backwards to push the third sample into the net zone.
         //SubSystem.DriveAll(0.7, -1500, 1, 0,0 ,0,0,0);
