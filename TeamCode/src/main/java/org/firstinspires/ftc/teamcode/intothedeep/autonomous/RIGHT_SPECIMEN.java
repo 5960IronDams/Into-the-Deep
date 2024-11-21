@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Latcher;
 
-@Autonomous(name = "RED_RIGHT_SPECIMEN_PUSH")
-public class RED_RIGHT_SPECIMEN_PUSH extends LinearOpMode {
+@Autonomous(name = "RIGHT_SPECIMEN")
+public class RIGHT_SPECIMEN extends LinearOpMode {
     void initialize() {
         SubSystem.initialize(this);
         Intake.initialize(this);

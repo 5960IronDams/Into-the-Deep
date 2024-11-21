@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Intake;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Latcher;
 
-@Autonomous(name = "blue_left_basket")
-public class blue_left_basket extends LinearOpMode {
+@Autonomous(name = "left_basket")
+public class left_basket extends LinearOpMode {
     void initialize() {
         SubSystem.initialize(this);
         Intake.initialize(this);
