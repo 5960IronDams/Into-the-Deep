@@ -14,7 +14,7 @@ public class GyroTurn extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        SubSystem.initialize(this);
+        SubSystem.initialize(this, 100);
         Intake.initialize(this);
         Intake.close();
         Latcher.initialize(this);

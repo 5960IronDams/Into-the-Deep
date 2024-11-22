@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.player.Latcher;
 @Autonomous(name = "RED_left_basket")
 public class RED_left_basket extends LinearOpMode {
     void initialize() {
-        SubSystem.initialize(this);
+        SubSystem.initialize(this, 100);
         Intake.initialize(this);
         Intake.open();
         Latcher.initialize(this);

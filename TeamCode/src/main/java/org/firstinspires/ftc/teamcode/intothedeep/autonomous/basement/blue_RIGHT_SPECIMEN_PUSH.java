@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.player.Latcher;
 @Autonomous(name = "blue_RIGHT_SPECIMEN_PUSH")
 public class blue_RIGHT_SPECIMEN_PUSH extends LinearOpMode {
     void initialize() {
-        SubSystem.initialize(this);
+        SubSystem.initialize(this, 100);
         Intake.initialize(this);
         Intake.open();
         Latcher.initialize(this);

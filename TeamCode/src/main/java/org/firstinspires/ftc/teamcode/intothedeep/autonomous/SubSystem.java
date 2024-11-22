@@ -26,7 +26,10 @@ public class SubSystem {
     static final int safetyExtenderPos = -500;
     static final int positionTolerence = 100;
 
-    public static void initialize(LinearOpMode linearOpMode)
+
+
+    //public static void setPositionTolerence(int tolerence) { positionTolerence = tolerence; }
+    public static void initialize(LinearOpMode linearOpMode, int driveTolerence)
     {
         _linearOpMode = linearOpMode;
         Drive.initialize(linearOpMode.hardwareMap, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -35,7 +38,7 @@ public class SubSystem {
         GnashMoter.initialize(linearOpMode.hardwareMap, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ExpansionHubGyro.initialization(linearOpMode.hardwareMap);
 
-        Drive.setPositionTolerance(positionTolerence);
+        Drive.setPositionTolerance(driveTolerence);
         LiftMotors.setPositionTolerance(positionTolerence);
         ExtMotor.setPositionTolerance(positionTolerence);
         GnashMoter.setPositionTolerance(positionTolerence);

@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.player.Latcher;
 @Autonomous(name = "RIGHT_SPECIMEN")
 public class RIGHT_SPECIMEN extends LinearOpMode {
     void initialize() {
-        SubSystem.initialize(this);
+        SubSystem.initialize(this, 100);
         Intake.initialize(this);
         Intake.open();
         Latcher.initialize(this);
@@ -23,6 +23,7 @@ public class RIGHT_SPECIMEN extends LinearOpMode {
         boolean getThree = true;
         initialize();
         while(opModeInInit()) {
+            telemetry.addLine("READY!!");
             if(gamepad1.x || gamepad2.x) getThree = true;
             else if(gamepad1.b || gamepad2.b) getThree = false;
             telemetry.addLine(getThree ? "GET_THREE": "get_two");
