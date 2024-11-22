@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.intothedeep.autonomous;
 
 public class Utility {
-    public static final double MIN_MOTOR_POW = 0.4;
+    public static final double MIN_MOTOR_POW = 0.44;
 
     public static final long CLOSE_CLAW_DELAY = 500;
     public static final long OPEN_CLAW_DELAY = 300;
