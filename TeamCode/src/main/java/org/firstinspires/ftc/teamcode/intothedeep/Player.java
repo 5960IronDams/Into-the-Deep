@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.core.player.Mecanum;
 import org.firstinspires.ftc.teamcode.intothedeep.core.GnashMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
+import org.firstinspires.ftc.teamcode.intothedeep.player.Acorn;
 import org.firstinspires.ftc.teamcode.intothedeep.player.ClipperThingamabobber;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Extender;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Gnasher;
@@ -20,7 +21,10 @@ public class Player extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        boolean useAcorn = true;
+
         Mecanum.initialize(this);
+        Acorn.initialize(this);
         Intake.initialize(this);
         Extender.initialize(this, DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Lift.initialize(this, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -35,19 +39,31 @@ public class Player extends LinearOpMode {
         while (opModeIsActive()) {
             telemetry.addData("Intake", Intake.isClosed());
 
-            /* gamepad1.left_trigger - Govenor
-             * gamepad1.right_stick_y,
-             * gamepad1.right_stick_x,
-             * gamepad1.left_stick_x - Turn */
-            Mecanum.drive();
+            if(gamepad2.x){
+                useAcorn = !useAcorn;
+                sleep(300);
+            }
+            if(useAcorn){
+                Acorn.run();
+            }
+            else {
+                /* gamepad1.left_trigger - Govenor
+                 * gamepad1.right_stick_y,
+                 * gamepad1.right_stick_x,
+                 * gamepad1.left_stick_x - Turn */
+                Mecanum.drive();
 
-            /* gamepad2.left_bumper - Open
-             * gamepad2.right_bumber - Closed */
-            Intake.run();
+                /* gamepad2.left_bumper - Open
+                 * gamepad2.right_bumber - Closed */
+                Intake.run();
 
-            /* gamepad2.right_stick_y
-             * gamepad2.x - Governor  */
-            Extender.run();
+                /* gamepad2.right_stick_y
+                 * gamepad2.x - Governor  */
+                Extender.run();
+
+                /* gamepad2.left_stick_y  */
+                Lift.run();
+            }
 
             /* gamepad2.left_trigger Up
              * gamepad2.right_trigger Down */
@@ -58,9 +74,6 @@ public class Player extends LinearOpMode {
             /* gamepad2.dpadup - up to hook
              * gamepad2.dpaddown - down to pull up */
             ClipperThingamabobber.run();
-
-            /* gamepad2.left_stick_y  */
-            Lift.run();
 
             telemetry.update();
         }

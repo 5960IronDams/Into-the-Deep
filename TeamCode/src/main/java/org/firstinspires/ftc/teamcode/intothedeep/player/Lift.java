@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
 public class Lift {
     static LinearOpMode _linearOpMode;
 
-    static final int minEncoderLimit = -5250;
+    static final int minEncoderLimit = -5470;
     static final int submersableBarTargetLimit = -850;
 
 //    static Govenor _govenor;

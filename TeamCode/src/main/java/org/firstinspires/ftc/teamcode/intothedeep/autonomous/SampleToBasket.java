@@ -76,7 +76,7 @@ public class SampleToBasket {
         // Drive forward into submersible
         // Strafe diagonal towards the submersible
         SubSystem.DriveAll(0.7, 125, 0, 0,0 ,0,0,0);
-        SubSystem.DriveAll(0.7, 1300, 1, 0,1 ,0,1,0);
+        SubSystem.DriveAll(0.7, 1700, 1, 0,1 ,0,1,0);
         SubSystem.StrafeAll(0.7, -1600, 0, 0,0 ,0,0,0);
     }
 }

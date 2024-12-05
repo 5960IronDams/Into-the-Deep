@@ -23,7 +23,7 @@ public class Extender {
     }
 
     public static void run() {
-        if (_govenor.setActive(_linearOpMode.gamepad2.x ? 1 : 0)) _linearOpMode.sleep(_govenor.getSleepDelay());
+        //if (_govenor.setActive(_linearOpMode.gamepad2.x ? 1 : 0)) _linearOpMode.sleep(_govenor.getSleepDelay());
 
 
         double power = 0;
