@@ -61,6 +61,8 @@ public class Acorn {
             setClawPosition(_acornClawClosed);
         }else if(_linearOpMode.gamepad2.right_bumper){
             setClawPosition(_acornClawOpen);
+        } else if (_linearOpMode.gamepad2.right_stick_button) {
+            setClawPosition(0.18);
         }
     }
 }

@@ -47,11 +47,6 @@ public class Player extends LinearOpMode {
                 Acorn.run();
             }
             else {
-                /* gamepad1.left_trigger - Govenor
-                 * gamepad1.right_stick_y,
-                 * gamepad1.right_stick_x,
-                 * gamepad1.left_stick_x - Turn */
-                Mecanum.drive();
 
                 /* gamepad2.left_bumper - Open
                  * gamepad2.right_bumber - Closed */
@@ -64,6 +59,12 @@ public class Player extends LinearOpMode {
                 /* gamepad2.left_stick_y  */
                 Lift.run();
             }
+
+            /* gamepad1.left_trigger - Govenor
+             * gamepad1.right_stick_y,
+             * gamepad1.right_stick_x,
+             * gamepad1.left_stick_x - Turn */
+            Mecanum.drive();
 
             /* gamepad2.left_trigger Up
              * gamepad2.right_trigger Down */
