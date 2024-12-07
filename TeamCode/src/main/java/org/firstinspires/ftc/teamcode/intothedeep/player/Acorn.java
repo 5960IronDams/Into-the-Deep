@@ -3,12 +3,17 @@ package org.firstinspires.ftc.teamcode.intothedeep.player;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class Acorn {
     static LinearOpMode _linearOpMode;
     static Servo _sAcornWrist;
     static CRServo _sAcornExt;
     static Servo _sAcornClaw;
+
+    public static boolean runReset = false;
+
+    static TouchSensor _tAcorn;
 //    public static boolean _openOrClosed;
     final static double _acornLowFlickPosition = 1;
     final static double _acornMiddleFlickPosition = 0.5f;
@@ -22,7 +27,9 @@ public class Acorn {
         _sAcornWrist = linearOpMode.hardwareMap.servo.get("acorn_wrist");
         _sAcornClaw = linearOpMode.hardwareMap.servo.get("acorn_claw");
         _sAcornExt = linearOpMode.hardwareMap.crservo.get("acorn_ext");
+        _tAcorn = linearOpMode.hardwareMap.touchSensor.get("tAcorn");
     }
+
     public static void setWristPosition(double pos) {
         _sAcornWrist.setPosition(pos);
     }
@@ -42,6 +49,27 @@ public class Acorn {
         return _sAcornClaw.getPosition();
     }
 
+    public static double getExtPower() {
+        return _sAcornExt.getPower();
+    }
+
+    public static boolean isReset() {
+        return _tAcorn.isPressed();
+    }
+
+    public static  void reset() {
+        if (runReset) {
+            setWristPosition(_acornHighFlickPosition);
+            setClawPosition(_acornClawClosed);
+            if (!_tAcorn.isPressed()) {
+                _sAcornExt.setPower(1);
+            } else {
+                _sAcornExt.setPower(0);
+                runReset = false;
+            }
+        }
+    }
+
     public static void run() {
         if (_linearOpMode.gamepad2.left_stick_y < 0) {
             setWristPosition(_acornMiddleFlickPosition);
@@ -51,9 +79,9 @@ public class Acorn {
             setWristPosition(_acornHighFlickPosition);
         }
 
-        if(_linearOpMode.gamepad2.right_stick_y > 0){
-            setWristPosition(_acornMiddleFlickPosition);
-        }
+//        if(_linearOpMode.gamepad2.right_stick_y > 0){
+//            setWristPosition(_acornMiddleFlickPosition);
+//        }
 
         _sAcornExt.setPower(_linearOpMode.gamepad2.right_stick_y);
 

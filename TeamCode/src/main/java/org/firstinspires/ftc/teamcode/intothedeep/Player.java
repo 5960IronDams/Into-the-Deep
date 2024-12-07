@@ -42,12 +42,19 @@ public class Player extends LinearOpMode {
             if(gamepad2.x){
                 useAcorn = !useAcorn;
                 sleep(300);
+                if (!useAcorn)
+                    Acorn.runReset = true;
             }
             if(useAcorn){
                 Acorn.run();
+                if (gamepad2.b) {
+                    Acorn.runReset = true;
+                    sleep(300);
+                }
+                Acorn.reset();
             }
             else {
-
+                Acorn.reset();
                 /* gamepad2.left_bumper - Open
                  * gamepad2.right_bumber - Closed */
                 Intake.run();

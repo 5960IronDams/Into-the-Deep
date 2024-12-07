@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.intothedeep.core.ClipperThingamabobberMote
 import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
 import org.firstinspires.ftc.teamcode.intothedeep.core.GnashMoter;
 import org.firstinspires.ftc.teamcode.intothedeep.core.LiftMotors;
+import org.firstinspires.ftc.teamcode.intothedeep.player.Acorn;
 import org.firstinspires.ftc.teamcode.intothedeep.player.ClipperThingamabobber;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Extender;
 import org.firstinspires.ftc.teamcode.intothedeep.player.Gnasher;
@@ -44,7 +45,7 @@ public class TroubleShooter extends LinearOpMode {
         LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         Intake.initialize(this);
-
+        Acorn.initialize(this);
         ControlHubGyro.initialization(hardwareMap);
         ExpansionHubGyro.initialization(hardwareMap);
         Latcher.initialize(this);
@@ -52,6 +53,8 @@ public class TroubleShooter extends LinearOpMode {
         Latcher.close();
         Intake.open();
         waitForStart();
+
+        boolean useAcorn = true;
 
         while (opModeIsActive()) {
             Mecanum.drive();
@@ -77,15 +80,42 @@ public class TroubleShooter extends LinearOpMode {
             telemetry.addData("rlp", drivePositions.get("flp"));
             telemetry.addData("rrp", drivePositions.get("flp"));
 
-            Lift.run();
-            telemetry.addLine("Lift");
-            telemetry.addData("IsTouching", LiftMotors.isTouching());
-            telemetry.addData("Pos", LiftMotors.getCurrentPosition());
+            if(gamepad2.x){
+                useAcorn = !useAcorn;
+                sleep(300);
+                if (!useAcorn)
+                    Acorn.runReset = true;
+            }
+            if(useAcorn){
+                Acorn.run();
+                if (gamepad2.b) {
+                    Acorn.runReset = true;
+                    sleep(300);
+                }
+                Acorn.reset();
+            }
+            else {
+                Acorn.reset();
+                telemetry.addLine("Acorn");
+                telemetry.addData("extPow", Acorn.getExtPower());
+                telemetry.addData("wristPos", Acorn.getWristPosition());
+                telemetry.addData("isReset", Acorn.isReset());
 
-            Extender.run();
-            telemetry.addLine("Extender Encoders");
-            telemetry.addData("gov", Extender.getActiveGovenor());
-            telemetry.addData("pos", ExtMotor.getCurrentPosition());
+                Lift.run();
+                telemetry.addLine("Lift");
+                telemetry.addData("IsTouching", LiftMotors.isTouching());
+                telemetry.addData("Pos", LiftMotors.getCurrentPosition());
+
+                Extender.run();
+                telemetry.addLine("Extender Encoders");
+                telemetry.addData("gov", Extender.getActiveGovenor());
+                telemetry.addData("pos", ExtMotor.getCurrentPosition());
+
+                Intake.run();
+                telemetry.addLine("Claw");
+                telemetry.addData("pos", Intake.getPosition());
+                telemetry.addData("closed", Intake.isClosed());
+            }
 
             Gnasher.run();
             telemetry.addLine("The Ghastly Gnasher");
@@ -100,11 +130,6 @@ public class TroubleShooter extends LinearOpMode {
 
             telemetry.addLine("EH Gyro Angle");
             telemetry.addData("degree", ExpansionHubGyro.getCurrentDegrees());
-
-            Intake.run();
-            telemetry.addLine("Claw");
-            telemetry.addData("pos", Intake.getPosition());
-            telemetry.addData("closed", Intake.isClosed());
 
             telemetry.update();
         }

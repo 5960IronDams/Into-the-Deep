@@ -25,7 +25,7 @@ public class Gnasher {
     public static void run() {
         double _DPadPower = 0;
 
-        if (_linearOpMode.gamepad2.b && _linearOpMode.gamepad1.b) {
+        if (_linearOpMode.gamepad1.b) {
             GnashMoter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             GnashMoter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
