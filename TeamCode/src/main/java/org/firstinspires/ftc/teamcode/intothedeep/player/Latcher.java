@@ -8,11 +8,12 @@ public class Latcher {
     static Servo _mLatcher;
     public static boolean _openOrClosed;
     public final static double _clawMinimumRange = 0;
-    public final static double _clawMaxRange = 0;
+    public final static double _clawMaxRange = 1;
 
     public static void initialize(LinearOpMode linearOpMode) {
         _linearOpMode = linearOpMode;
         _mLatcher = linearOpMode.hardwareMap.servo.get("Latcher");
+        _mLatcher.setPosition(_clawMinimumRange);
     }
 
 //    public static void open (){
@@ -32,12 +33,16 @@ public class Latcher {
 
     public static void run() {
 
-        if (_linearOpMode.gamepad2.right_bumper) {
-            _mLatcher.setPosition(_clawMaxRange);
-            _openOrClosed = true;
-        } else {
-            _mLatcher.setPosition(_clawMinimumRange);
-            _openOrClosed = false;
+//        if (_linearOpMode.gamepad2.right_bumper) {
+//            _mLatcher.setPosition(_clawMaxRange);
+//            _openOrClosed = true;
+//        } else {
+//            _mLatcher.setPosition(_clawMinimumRange);
+//            _openOrClosed = false;
+//        }
+        if (_linearOpMode.gamepad1.x){
+         _mLatcher.setPosition(_clawMaxRange);
         }
+        else { _mLatcher.setPosition(_clawMinimumRange);}
     }
 }

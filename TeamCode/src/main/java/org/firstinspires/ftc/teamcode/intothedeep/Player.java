@@ -73,6 +73,8 @@ public class Player extends LinearOpMode {
              * gamepad1.left_stick_x - Turn */
             Mecanum.drive();
 
+            Latcher.run();
+
             /* gamepad2.left_trigger Up
              * gamepad2.right_trigger Down */
             Gnasher.run();
