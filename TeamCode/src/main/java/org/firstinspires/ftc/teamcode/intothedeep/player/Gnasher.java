@@ -14,7 +14,7 @@ public class Gnasher {
     static Govenor _govenor;
     static final double _max_govenor = 1;
     static final double _min_govenor = 0.6;
-    static final int _max_position = 1980;
+    static final int _max_position = 1940;
 
     public static void initialize(LinearOpMode linearOpMode, DcMotor.RunMode runMode) {
         _linearOpMode = linearOpMode;

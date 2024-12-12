@@ -1,7 +1,11 @@
 package org.firstinspires.ftc.teamcode.intothedeep.autonomous;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.teamcode.core.Drive;
 import org.firstinspires.ftc.teamcode.core.autonomous.ExpansionHubGyro;
 import org.firstinspires.ftc.teamcode.intothedeep.core.ExtMotor;
@@ -26,6 +30,7 @@ public class SubSystem {
     static final int safetyExtenderPos = -500;
     static final int positionTolerence = 100;
 
+    private static ElapsedTime runtime = new ElapsedTime();
 
 
     //public static void setPositionTolerence(int tolerence) { positionTolerence = tolerence; }
@@ -95,9 +100,17 @@ public class SubSystem {
     }
 
     public static void DriveAll(double drivePower, int drivePosition,
+                                double liftPower, int liftPosition,
+                                double extPower, int extPosition,
+                                double gnasherPower, int gnasherPosition) {
+        DriveAll(drivePower, drivePosition, liftPower, liftPosition, extPower,extPosition, gnasherPower, gnasherPosition, 0);
+
+    }
+
+    public static void DriveAll(double drivePower, int drivePosition,
                                            double liftPower, int liftPosition,
                                            double extPower, int extPosition,
-                                           double gnasherPower, int gnasherPosition) {
+                                           double gnasherPower, int gnasherPosition, double milliseconds) {
 
         boolean isMoving;
         isMoving = true;
@@ -108,7 +121,9 @@ public class SubSystem {
         if (liftPower != 0) LiftMotors.setPower(liftPower);
         if (gnasherPower != 0) GnashMoter.setPower(gnasherPower);
 
+        runtime.reset();
         while ((Drive.isBusy() || ExtMotor.isBusy() || LiftMotors.isBusy() || GnashMoter.isBusy())
+                && (milliseconds == 0 || runtime.milliseconds() <= milliseconds)
                 && !_linearOpMode.isStopRequested()) {
             if (drivePower != 0 && !Drive.isBusy()) Drive.stop();
 
@@ -136,6 +151,12 @@ public class SubSystem {
             gnasherTelemery();
             _linearOpMode.telemetry.update();
         }
+        Log.d("5960", "Drive - Milli:" + runtime.milliseconds());
+
+        if (Drive.isBusy()) Drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (ExtMotor.isBusy()) ExtMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (LiftMotors.isBusy()) LiftMotors.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (GnashMoter.isBusy()) GnashMoter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         driveTelemetry();
         liftTelemetry();
@@ -185,6 +206,7 @@ public class SubSystem {
             GnashMoter.setPower(gnasherPower);
         }
 
+        runtime.reset();
         while ((!Drive.isAtEncoder() || ExtMotor.isBusy() || LiftMotors.isBusy() || GnashMoter.isBusy())
                 && !_linearOpMode.isStopRequested()) {
 
@@ -214,6 +236,7 @@ public class SubSystem {
             gnasherTelemery();
             _linearOpMode.telemetry.update();
         }
+        Log.d("5960", "Strafe - Milli:" + runtime.milliseconds());
 
         driveTelemetry();
         liftTelemetry();
@@ -274,6 +297,7 @@ public class SubSystem {
             GnashMoter.setPower(gnasherPower);
         }
 
+        runtime.reset();
         while ((targetDegrees > currentDegrees || ExtMotor.isBusy() || LiftMotors.isBusy())
                 && !_linearOpMode.isStopRequested()) {
             currentDegrees = ExpansionHubGyro.getCurrentDegrees();
@@ -306,6 +330,7 @@ public class SubSystem {
             gnasherTelemery();
             _linearOpMode.telemetry.update();
         }
+        Log.d("5960", "Turn Left - Milli:" + runtime.milliseconds());
     }
 
     static void TurnRight(double drivePower, double targetDegrees, double currentDegrees,
@@ -333,6 +358,7 @@ public class SubSystem {
             GnashMoter.setPower(gnasherPower);
         }
 
+        runtime.reset();
         while ((targetDegrees > currentDegrees || ExtMotor.isBusy() || LiftMotors.isBusy())
                 && !_linearOpMode.isStopRequested()) {
             currentDegrees = ExpansionHubGyro.getCurrentDegrees();
@@ -368,6 +394,7 @@ public class SubSystem {
             gnasherTelemery();
             _linearOpMode.telemetry.update();
         }
+        Log.d("5960", "Turn Right - Milli:" + runtime.milliseconds());
     }
 
     static void driveTelemetry() {
