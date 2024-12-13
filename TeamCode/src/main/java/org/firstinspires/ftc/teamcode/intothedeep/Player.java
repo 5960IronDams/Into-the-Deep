@@ -80,6 +80,7 @@ public class Player extends LinearOpMode {
             Gnasher.run();
             telemetry.addLine("Gnasher");
             telemetry.addData("pos", GnashMoter.getCurrentPosition());
+telemetry.addData("tar", Gnasher._max_position);
 
             /* gamepad2.dpadup - up to hook
              * gamepad2.dpaddown - down to pull up */

@@ -14,7 +14,7 @@ public class Gnasher {
     static Govenor _govenor;
     static final double _max_govenor = 1;
     static final double _min_govenor = 0.6;
-    static final int _max_position = 1940;
+    public static int _max_position = 1940;
 
     public static void initialize(LinearOpMode linearOpMode, DcMotor.RunMode runMode) {
         _linearOpMode = linearOpMode;
@@ -25,6 +25,14 @@ public class Gnasher {
     public static void run() {
         double _DPadPower = 0;
 
+        if (_linearOpMode.gamepad1.dpad_up && _max_position < 1940) {
+        _max_position += 50;
+        _linearOpMode.sleep(300);
+        } else if(_linearOpMode.gamepad1.dpad_down && _max_position > 1800){
+            _max_position -= 50;
+            _linearOpMode.sleep(300);
+        }
+
         if (_linearOpMode.gamepad1.b) {
             GnashMoter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             GnashMoter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -34,7 +42,10 @@ public class Gnasher {
             _DPadPower = 1;
         } else if(_linearOpMode.gamepad2.right_trigger != 0) { // && GnashMoter.getCurrentPosition() > 0) {
             _DPadPower = -1;
-        }else {
+       // } else if(GnashMoter.getCurrentPosition() > _max_position){
+        //    _DPadPower = -1;
+        }
+        else {
             _DPadPower = 0;
         }
 
